@@ -1,0 +1,174 @@
+.container-sall {
+    width: 100%;
+    height: calc(100vh - 40px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sall-boxs_cart,
+.sall-boxs_count {
+    height: calc(100vh - 40px);
+
+
+}
+
+
+.sall-boxs_cart {
+    background: #343a40;
+    width: 80%;
+    min-width: 45%;
+    padding: 7px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.custom-table .ant-table-row {
+    height: 20px !important;
+    padding: 0;
+    /* Satr balandligini o'zgartiring */
+}
+
+.custom-table .ant-table-cell {
+    height: 20px !important;
+    padding: 0;
+
+    /* Ichki bo'shliqni (padding) o'zgartiring */
+}
+
+.sall-boxs_count {
+    background: grey;
+    width: 250px;
+    min-width: 20%;
+}
+
+.cal-buttons {
+    background-color: #f0f0f0;
+    width: 30%;
+    height: 38px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cal-box {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.checkout-header input {
+    width: 200px;
+    height: 28px;
+    background: transparent;
+    border: none;
+    border: .8px solid rgba(128, 128, 128, 0.317);
+    text-indent: 8px;
+    border-radius: 4px;
+
+}
+
+.checkout-header-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+}
+
+.checkout-header-right>button {
+    background: transparent;
+    border: none;
+    position: absolute;
+    right: 8px;
+    top: -1.5px;
+}
+
+.checkout-header-right>button:hover {
+    color: red;
+}
+
+.checkout-header-right h3 {
+    margin-top: 6px;
+    font-size: 17px;
+}
+
+.checkout-header-right input {
+    width: 200px;
+    height: 28px;
+    background: transparent;
+    border: none;
+    border: .8px solid rgba(128, 128, 128, 0.317);
+    text-indent: 8px;
+    border-radius: 4px;
+
+}
+
+/* styles.css */
+.checkout-container {
+    background-color: #333;
+    padding: 3px 10px 10px 10px;
+    border-radius: 8px;
+    color: white;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.checkout-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: .5px solid gray;
+    height: 37px;
+}
+
+.subtotal {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    margin: 10px 0;
+    padding-bottom: 5px;
+    gap: 5px;
+}
+
+.details {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    gap: 5px;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.custom-placeholder-input::placeholder {
+    color: rgb(255, 255, 255);
+    /* Set the placeholder text color */
+    opacity: 1;
+    /* Ensure placeholder text is fully opaque */
+}
+
+.custom-placeholder-input-reset {
+    position: relative;
+}
+
+.custom-placeholder-input-reset>button {
+    background: transparent;
+    border: none;
+    position: absolute;
+    right: 8px;
+    top: -1.5px;
+}
+
+.custom-placeholder-input-reset>button:hover {
+    color: red;
+}

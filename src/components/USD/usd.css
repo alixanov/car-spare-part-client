@@ -1,0 +1,13 @@
+
+
+.admin-buttons input,
+.admin-buttons button {
+     height: 35px;
+     /* Общая высота для input и button */
+}
+
+.admin-buttons input,
+.admin-buttons button {
+     height: 30px;
+     /* Общая высота для input и button */
+}

@@ -1,0 +1,120 @@
+/* Kassa uchun maxsus stil */
+@import url(https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;200;300;400;500;600;700&display=swap);
+.kassa-card {
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.kassa-container {
+  max-width: 1920px;
+  width: 100%;
+  height: 95.5vh;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  overflow: scroll;
+}
+
+.kassa-header {
+  width: 20%;
+  height: 100%;
+  background-color: #0f4c81;
+  border-right: 5px solid white;
+  border-bottom: 5px solid white;
+  padding-left: 10px;
+  display: flex;
+  justify-content: start;
+  padding-top: 10px;
+  flex-direction: column;
+  align-items: start;
+  gap: 10px;
+}
+::placeholder {
+  color: white!important;
+}
+.ant-tabs-tab {
+  color: white !important;
+}
+
+.ant-tabs-content-holder {
+  color: white !important;
+}
+
+.ant-card {
+  border-bottom: 5px solid white;
+  border-radius: none;
+}
+
+.ant-card-body {
+  padding: 10px !important; /* Card ichki bo'shligi */
+}
+
+.chek_item > span {
+  font-size: 11px;
+  font-family: "Roboto Mono";
+  text-align: center;
+  /* white-space: nowrap; */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.chek_wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  overflow: scroll;
+}
+.chek_qr {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 50%;
+}
+
+.chek_item > p,
+.chek_qr > p {
+  font-size: 15px;
+  font-family: "Roboto Mono";
+  font-weight: 500;
+  text-align: center;
+}
+/* .chek_qr > p {
+  height: 40px;
+} */
+.chek_item {
+  display: flex;
+  align-items: center !important;
+  justify-content: space-between;
+  width: 100%;
+  flex-direction: column;
+  /* padding-left: 10px; */
+}
+
+.chek_item > span {
+  font-weight: 500;
+  /* margin-left: 10px; */
+}
+
+
+
+
+
+
+
+#tgqr_p{
+  width: 100%;
+  display: flex;
+  font-weight: bold;
+  flex-wrap: nowrap;
+  font-size: 14px;
+  align-items: center;
+
+}
+#tgqr{
+  width: 100px;
+}
+
+.table > tbody{
+  height: 120px;
+}
+

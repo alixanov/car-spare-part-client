@@ -1,0 +1,194 @@
+.admin-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.admin-buttons {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding: 10px;
+  gap: 10px;
+  flex-wrap: wrap;
+  /* Кнопки будут переноситься на новую строку при нехватке места */
+}
+
+.ant-tabs {
+  flex-grow: 1;
+  width: 100%;
+}
+
+.ant-tabs-content-holder {
+  width: 100%;
+}
+
+.ant-tabs-nav {
+  width: 100%;
+  background-color: crimson;
+}
+
+.ant-tabs-tab {
+  margin: 0 5px;
+  /* Уменьшаем отступы между вкладками */
+}
+
+.ant-tabs-tab-btn {
+  font-size: 14px;
+  /* Уменьшаем размер шрифта для вкладок */
+}
+
+.ant-table {
+  width: 100%;
+  overflow-x: auto;
+  /* Добавляем горизонтальную прокрутку для таблиц */
+}
+
+.ant-table-thead>tr>th,
+.ant-table-tbody>tr>td {
+  padding: 8px;
+  /* Уменьшаем отступы в ячейках таблицы */
+  font-size: 12px;
+  /* Уменьшаем размер шрифта в таблице */
+}
+
+.ant-form-item {
+  margin-bottom: 10px;
+  /* Уменьшаем отступы между элементами формы */
+}
+
+.ant-input,
+.ant-select-selector {
+  font-size: 14px;
+  /* Уменьшаем размер шрифта в полях ввода */
+}
+
+.ant-modal {
+  max-width: 90%;
+  /* Ограничиваем ширину модальных окон */
+}
+
+.ant-modal-body {
+  padding: 10px;
+  /* Уменьшаем отступы внутри модальных окон */
+}
+
+.ant-btn {
+  font-size: 14px;
+  /* Уменьшаем размер шрифта в кнопках */
+  padding: 5px 10px;
+  /* Уменьшаем отступы в кнопках */
+}
+
+/* Адаптация для мобильных устройств */
+@media (max-width: 768px) {
+  .admin-buttons {
+    flex-direction: column;
+    /* Кнопки располагаются вертикально */
+    align-items: flex-start;
+  }
+
+  .ant-tabs-tab {
+    margin: 0 2px;
+    /* Уменьшаем отступы между вкладками */
+  }
+
+  .ant-tabs-tab-btn {
+    font-size: 12px;
+    /* Уменьшаем размер шрифта для вкладок */
+  }
+
+  .ant-table-thead>tr>th,
+  .ant-table-tbody>tr>td {
+    padding: 6px;
+    /* Уменьшаем отступы в ячейках таблицы */
+    font-size: 10px;
+    /* Уменьшаем размер шрифта в таблице */
+  }
+
+  .ant-form-item {
+    margin-bottom: 8px;
+    /* Уменьшаем отступы между элементами формы */
+  }
+
+  .ant-input,
+  .ant-select-selector {
+    font-size: 12px;
+    /* Уменьшаем размер шрифта в полях ввода */
+  }
+
+  .ant-modal {
+    max-width: 95%;
+    /* Ограничиваем ширину модальных окон */
+  }
+
+  .ant-modal-body {
+    padding: 8px;
+    /* Уменьшаем отступы внутри модальных окон */
+  }
+
+  .ant-btn {
+    font-size: 12px;
+    /* Уменьшаем размер шрифта в кнопках */
+    padding: 4px 8px;
+    /* Уменьшаем отступы в кнопках */
+  }
+}
+
+/* Адаптация для планшетов */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .admin-buttons {
+    flex-direction: row;
+    /* Кнопки располагаются горизонтально */
+    align-items: center;
+  }
+
+  .ant-tabs-tab {
+    margin: 0 3px;
+    /* Уменьшаем отступы между вкладками */
+  }
+
+  .ant-tabs-tab-btn {
+    font-size: 13px;
+    /* Уменьшаем размер шрифта для вкладок */
+  }
+
+  .ant-table-thead>tr>th,
+  .ant-table-tbody>tr>td {
+    padding: 7px;
+    /* Уменьшаем отступы в ячейках таблицы */
+    font-size: 11px;
+    /* Уменьшаем размер шрифта в таблице */
+  }
+
+  .ant-form-item {
+    margin-bottom: 9px;
+    /* Уменьшаем отступы между элементами формы */
+  }
+
+  .ant-input,
+  .ant-select-selector {
+    font-size: 13px;
+    /* Уменьшаем размер шрифта в полях ввода */
+  }
+
+  .ant-modal {
+    max-width: 90%;
+    /* Ограничиваем ширину модальных окон */
+  }
+
+  .ant-modal-body {
+    padding: 9px;
+    /* Уменьшаем отступы внутри модальных окон */
+  }
+
+  .ant-btn {
+    font-size: 13px;
+    /* Уменьшаем размер шрифта в кнопках */
+    padding: 5px 9px;
+    /* Уменьшаем отступы в кнопках */
+  }
+}
