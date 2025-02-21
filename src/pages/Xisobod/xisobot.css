@@ -6,7 +6,10 @@
   align-items: center;
   gap: 12px;
   justify-content: center;
+  flex-wrap: wrap;
+  /* Добавляем возможность переноса для мобильных */
 }
+
 .hisobot_card {
   width: 220px;
   height: 140px;
@@ -28,7 +31,7 @@
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
-.hisobot_card > b {
+.hisobot_card>b {
   font-size: 25px;
   height: 55px;
   width: 100%;
@@ -40,7 +43,7 @@
   color: #343a40;
 }
 
-.hisobot_card > p {
+.hisobot_card>p {
   width: 100%;
   text-align: center;
   height: 55px;
@@ -50,4 +53,48 @@
   align-items: end;
   font-size: 16px;
   color: #495057;
+}
+
+/* Адаптация для планшетов */
+@media (max-width: 768px) {
+  .hisobot_card {
+    width: 180px;
+    /* Уменьшаем размер карточек */
+    height: 120px;
+    font-size: 18px;
+  }
+
+  .hisobot_card>b {
+    font-size: 22px;
+  }
+
+  .hisobot_card>p {
+    font-size: 14px;
+  }
+}
+
+/* Адаптация для мобильных устройств */
+@media (max-width: 480px) {
+  .hisobot_container {
+    gap: 8px;
+    /* Уменьшаем расстояние между карточками */
+  }
+
+  .hisobot_card {
+    width: 150px;
+    /* Уменьшаем карточки еще больше на мобильных */
+    height: 110px;
+    padding: 5px;
+    font-size: 16px;
+  }
+
+  .hisobot_card>b {
+    font-size: 20px;
+    height: 45px;
+  }
+
+  .hisobot_card>p {
+    font-size: 12px;
+    height: 45px;
+  }
 }

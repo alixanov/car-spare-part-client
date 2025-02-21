@@ -1,57 +1,83 @@
 .table {
   width: 100%;
   border-collapse: collapse;
+  overflow-x: auto;
 }
 
+/* Фиксируем заголовок */
 .table > thead {
   background: #ffffff;
   position: sticky;
   top: 0;
+  z-index: 10;
 }
 
-.table > thead > tr > :where(th, td) {
+/* Стиль для ячеек */
+.table > thead > tr > :where(th, td),
+.table > tbody > tr > :where(th, td) {
   border: 1px solid #ccc;
   padding: 8px 10px;
   text-align: left;
   font-size: 16px;
-  font-weight: 600;
   color: #333;
+  white-space: nowrap;
 }
 
-.table > thead > tr > :first-child {
+/* Минимальные размеры для первого столбца */
+.table > thead > tr > :first-child,
+.table > tbody > tr > :first-child {
   text-align: center;
   width: 60px;
 }
 
-.table > tbody > tr > :where(th, td) {
-  max-width: 200px;
-  border: 1px solid #ccc;
-  padding: 5px 10px;
-  font-size: 14px;
-  color: #666;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.table > tbody > tr > :where(th, td) figure {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.table > tbody > tr > :where(th, td) figure img {
+/* Стили для изображений */
+.table > tbody > tr > td figure img {
   width: 80px;
   aspect-ratio: 16/9;
   object-fit: cover;
 }
 
-.table > tbody > tr > :first-child {
-  text-align: center;
+/* 🌍 Адаптация для мобильных и планшетов */
+@media (max-width: 768px) {
+  .table-container {
+    width: 100%;
+    overflow-x: auto; /* Горизонтальный скролл */
+  }
+
+  .table {
+    display: block;
+    width: max-content; /* Позволяет прокручивать таблицу */
+  }
 }
 
-.table > tbody > tr:hover {
-  background: #f9f9f9;
-  cursor: pointer;
+@media (max-width: 480px) {
+  .table {
+    display: block;
+    width: 100%;
+  }
+
+  .table > thead {
+    display: none; /* Скрываем заголовки */
+  }
+
+  .table > tbody > tr {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+
+  .table > tbody > tr > td {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    font-size: 14px;
+  }
+
+  .table > tbody > tr > td::before {
+    content: attr(data-label); /* Показываем заголовок столбца */
+    font-weight: bold;
+    color: #333;
+  }
 }

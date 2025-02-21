@@ -318,18 +318,26 @@ export const Admin = () => {
       title: "Amallar",
       key: "actions",
       render: (_, record) => (
-        <div>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap", // Кнопки переносятся на новую строку при необходимости
+            justifyContent: "center", // Центрирование кнопок
+            gap: "8px", // Равномерные отступы между кнопками
+            padding: "8px 0" // Отступы сверху и снизу
+          }}
+        >
           <Button
             type="primary"
-            style={{ marginRight: "10px" }}
             onClick={() => showEditModal(record)}
+            style={{ minWidth: 40 }} // Минимальная ширина кнопки
           >
             <EditOutlined />
           </Button>
           <Button
             type="primary"
-            style={{ marginRight: "10px" }}
             onClick={() => showTransferModal(record)}
+            style={{ minWidth: 40 }}
           >
             <BiTransfer />
           </Button>
@@ -339,11 +347,12 @@ export const Admin = () => {
             okText="Ha"
             cancelText="Yo'q"
           >
-            <Button type="primary" danger>
+            <Button type="primary" danger style={{ minWidth: 40 }}>
               <DeleteOutlined />
             </Button>
           </Popconfirm>
         </div>
+
       ),
     },
   ];
@@ -400,189 +409,108 @@ export const Admin = () => {
       <div className="admin-buttons">
         <PrintButton /> {/* PrintButton komponentini joylashtirish */}
       </div>
-      <Modal
-        title="Mahsulot yaratish"
-        open={isModalOpen}
-        onCancel={handleCancel}
-        footer={null}
-      >
+
+      <Modal title="Mahsulot yaratish" open={isModalOpen} onCancel={handleCancel} footer={null}>
         <Form layout="vertical" form={form} onFinish={handleFinish}>
-          <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item
-                label="Mahsulot nomi"
-                name="product_name"
-                rules={[{ required: true, message: "Majburiy maydon!" }]}
-              >
-                <AutoComplete
-                  options={productNames.map((name) => ({
-                    value: name,
-                  }))}
-                  placeholder="Mahsulot nomi"
-                  filterOption={(inputValue, option) =>
-                    option.value
-                      .toLowerCase()
-                      .indexOf(inputValue.toLowerCase()) !== -1
-                  }
-                >
+          <Row gutter={[16, 16]}>
+            <Col xs={24} sm={12}>
+              <Form.Item label="Mahsulot nomi" name="product_name" rules={[{ required: true, message: "Majburiy maydon!" }]}>
+                <AutoComplete options={productNames.map((name) => ({ value: name }))} placeholder="Mahsulot nomi" filterOption={(inputValue, option) =>
+                  option.value.toLowerCase().includes(inputValue.toLowerCase())
+                }>
                   <Input placeholder="Mahsulot nomi" autoComplete="off" />
                 </AutoComplete>
               </Form.Item>
             </Col>
-            <Col span={12}>
-              <Form.Item
-                label="Model"
-                name="model"
-                rules={[{ required: true, message: "Majburiy maydon!" }]}
-              >
-                <AutoComplete
-                  options={models.map((model) => ({
-                    value: model,
-                  }))}
-                  placeholder="Model"
-                  filterOption={(inputValue, option) =>
-                    option.value
-                      .toLowerCase()
-                      .indexOf(inputValue.toLowerCase()) !== -1
-                  }
-                >
+            <Col xs={24} sm={12}>
+              <Form.Item label="Model" name="model" rules={[{ required: true, message: "Majburiy maydon!" }]}>
+                <AutoComplete options={models.map((model) => ({ value: model }))} placeholder="Model" filterOption={(inputValue, option) =>
+                  option.value.toLowerCase().includes(inputValue.toLowerCase())
+                }>
                   <Input placeholder="Model" autoComplete="off" />
                 </AutoComplete>
               </Form.Item>
             </Col>
           </Row>
-          <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item
-                label="Miqdor"
-                name="stock"
-                rules={[{ required: true, message: "Majburiy maydon!" }]}
-              >
+
+          <Row gutter={[16, 16]}>
+            <Col xs={24} sm={12}>
+              <Form.Item label="Miqdor" name="stock" rules={[{ required: true, message: "Majburiy maydon!" }]}>
                 <Input type="number" placeholder="Miqdor" autoComplete="off" />
               </Form.Item>
             </Col>
-            <Col span={12}>
-              <Form.Item
-                label="Katalogi"
-                name="product_category"
-                rules={[{ required: true, message: "Majburiy maydon!" }]}
-              >
+            <Col xs={24} sm={12}>
+              <Form.Item label="Katalogi" name="product_category" rules={[{ required: true, message: "Majburiy maydon!" }]}>
                 <Input placeholder="Katalogi" autoComplete="off" />
               </Form.Item>
             </Col>
           </Row>
-          <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item
-                label="Sotib olish narxi (USD)"
-                name="purchase_price"
-                rules={[{ required: true, message: "Majburiy maydon!" }]}
-              >
-                <Input
-                  type="number"
-                  placeholder="Sotib olish narxi (USD)"
-                  autoComplete="off"
-                />
+
+          <Row gutter={[16, 16]}>
+            <Col xs={24} sm={12}>
+              <Form.Item label="Sotib olish narxi (USD)" name="purchase_price" rules={[{ required: true, message: "Majburiy maydon!" }]}>
+                <Input type="number" placeholder="Sotib olish narxi (USD)" autoComplete="off" />
               </Form.Item>
             </Col>
-            <Col span={12}>
-              <Form.Item
-                label="Sotish narxi (USD )"
-                name="sell_price"
-                rules={[{ required: true, message: "Majburiy maydon!" }]}
-              >
-                <Input
-                  type="number"
-                  placeholder="Sotish narxi (USD)"
-                  autoComplete="off"
-                />
+            <Col xs={24} sm={12}>
+              <Form.Item label="Sotish narxi (USD )" name="sell_price" rules={[{ required: true, message: "Majburiy maydon!" }]}>
+                <Input type="number" placeholder="Sotish narxi (USD)" autoComplete="off" />
               </Form.Item>
             </Col>
           </Row>
-          <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item
-                label="Brend nomi"
-                name="brand_name"
-                rules={[{ required: true, message: "Majburiy maydon!" }]}
-              >
-                <AutoComplete
-                  options={brandNames.map((brand) => ({
-                    value: brand,
-                  }))}
-                  placeholder="Brend nomi"
-                  filterOption={(inputValue, option) =>
-                    option.value
-                      .toLowerCase()
-                      .indexOf(inputValue.toLowerCase()) !== -1
-                  }
-                >
+
+          <Row gutter={[16, 16]}>
+            <Col xs={24} sm={12}>
+              <Form.Item label="Brend nomi" name="brand_name" rules={[{ required: true, message: "Majburiy maydon!" }]}>
+                <AutoComplete options={brandNames.map((brand) => ({ value: brand }))} placeholder="Brend nomi" filterOption={(inputValue, option) =>
+                  option.value.toLowerCase().includes(inputValue.toLowerCase())
+                }>
                   <Input placeholder="Brend nomi" autoComplete="off" />
                 </AutoComplete>
               </Form.Item>
             </Col>
-            <Col span={12}>
-              <Form.Item
-                label="O'lchov birligi"
-                name="count_type"
-                rules={[{ required: true, message: "Majburiy maydon!" }]}
-              >
-                <Select placeholder="O'lchov birligi" autoComplete="off">
+            <Col xs={24} sm={12}>
+              <Form.Item label="O'lchov birligi" name="count_type" rules={[{ required: true, message: "Majburiy maydon!" }]}>
+                <Select placeholder="O'lchov birligi">
                   <Option value="dona">Dona</Option>
                   <Option value="komplekt">Komplekt</Option>
                 </Select>
               </Form.Item>
             </Col>
           </Row>
-          <Row gutter={16}>
-            <Col span={12}>
+
+          <Row gutter={[16, 16]}>
+            <Col xs={24} sm={12}>
               <Form.Item label="Qadoq turi" name="packing_type">
-                <AutoComplete
-                  options={packingTypes.map((type) => ({
-                    value: type,
-                  }))}
-                  placeholder="Qadoq turi"
-                  filterOption={(inputValue, option) =>
-                    option.value
-                      .toLowerCase()
-                      .indexOf(inputValue.toLowerCase()) !== -1
-                  }
-                >
+                <AutoComplete options={packingTypes.map((type) => ({ value: type }))} placeholder="Qadoq turi" filterOption={(inputValue, option) =>
+                  option.value.toLowerCase().includes(inputValue.toLowerCase())
+                }>
                   <Input placeholder="Qadoq turi" autoComplete="off" />
                 </AutoComplete>
               </Form.Item>
             </Col>
-            <Col span={12}>
-              <Form.Item
-                label="Shtrix kod"
-                name="barcode"
-                initialValue={barcode}
-              >
+            <Col xs={24} sm={12}>
+              <Form.Item label="Shtrix kod" name="barcode" initialValue={barcode}>
                 <Input placeholder="Shtrix kod" autoComplete="off" disabled />
               </Form.Item>
             </Col>
           </Row>
-          <Row gutter={16}>
-            <Col span={24}>
+
+          <Row gutter={[16, 16]}>
+            <Col xs={24}>
               <Form.Item label="Maxsus eslatmalar" name="special_notes">
-                <Input.TextArea
-                  placeholder="Maxsus eslatmalar"
-                  autoComplete="off"
-                />
+                <Input.TextArea placeholder="Maxsus eslatmalar" autoComplete="off" />
               </Form.Item>
             </Col>
-            <Col span={24}>
-              <Form.Item
-                label="Kimdan kelgan"
-                name="kimdan_kelgan"
-                rules={[{ required: true, message: "Majburiy maydon!" }]}
-              >
+            <Col xs={24}>
+              <Form.Item label="Kimdan kelgan" name="kimdan_kelgan" rules={[{ required: true, message: "Majburiy maydon!" }]}>
                 <Input placeholder="Kimdan kelgan" autoComplete="off" />
               </Form.Item>
             </Col>
           </Row>
+
           <Form.Item>
-            <Button type="primary" htmlType="submit" block>
+            <Button type="primary" htmlType="submit" block style={{ marginTop: 16 }}>
               Saqlash
             </Button>
           </Form.Item>
@@ -594,23 +522,31 @@ export const Admin = () => {
         open={isTransferModalOpen}
         onCancel={handleTransferCancel}
         footer={null}
+        width="90%" // Модальное окно адаптируется к мобильным экранам
+        style={{ maxWidth: 400, margin: "0 auto" }} // Ограничение ширины на планшетах
       >
-        <Form layout="vertical" form={form} onFinish={handleAddToStore}>
+        <Form layout="vertical" form={form} onFinish={handleAddToStore} style={{ width: "100%" }}>
           <Form.Item
             label="Miqdor"
             name="quantity"
             rules={[{ required: true, message: "Majburiy maydon!" }]}
+            style={{ width: "100%" }}
           >
-            <Input type="number" placeholder="Miqdor" autoComplete="off" />
+            <Input type="number" placeholder="Miqdor" autoComplete="off" style={{ width: "100%" }} />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit" block>
+            <Button type="primary" htmlType="submit" block style={{ marginTop: 16 }}>
               Dokonga o'tkazish
             </Button>
           </Form.Item>
         </Form>
       </Modal>
-      <Tabs defaultActiveKey="1" style={{ flexGrow: 1, width: "100%" }}>
+
+      <Tabs
+        defaultActiveKey="1"
+        style={{ flexGrow: 1, width: "100%", overflowX: "auto" }} // Прокрутка на маленьких экранах
+        tabBarStyle={{ flexWrap: "wrap" }} // Вкладки оборачиваются при нехватке места
+      >
         {access?.skaladorlar && (
           <Tabs.TabPane
             tab={
@@ -620,61 +556,53 @@ export const Admin = () => {
             }
             key="1"
           >
-            <Button
-              type="primary"
-              onClick={showModal}
-              style={{
-                backgroundColor: "#52c41a",
-                borderColor: "#52c41a",
-                marginBottom: "10px",
-              }}
-              icon={<PlusOutlined />}
-            >
-              Omborga Mahsulot qo'shish +
-            </Button>
-            <Input.Search
-              placeholder="Mahsulot nomi yoki modeli bo'yicha qidirish..."
-              onChange={(e) => handleSearch(e.target.value)}
-              style={{ width: 300, marginLeft: 20 }}
-            />
-            <Select
-              defaultValue="all"
-              style={{ width: 200, marginLeft: 20 }}
-              onChange={handleFilterChange}
-            >
-              <Option value="all">Barcha mahsulotlar</Option>
-              <Option value="runningOut">Tugayotgan mahsulotlar</Option>
-              <Option value="outOfStock">Tugagan mahsulotlar</Option>
-            </Select>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 10 }}>
+              <Button
+                type="primary"
+                onClick={showModal}
+                style={{ backgroundColor: "#52c41a", borderColor: "#52c41a" }}
+                icon={<PlusOutlined />}
+              >
+                Omborga Mahsulot qo'shish +
+              </Button>
+              <Input.Search
+                placeholder="Mahsulot nomi yoki modeli bo'yicha qidirish..."
+                onChange={(e) => handleSearch(e.target.value)}
+                style={{ flex: "1 1 auto", minWidth: 200, maxWidth: 300 }} // Автоматическая адаптация
+              />
+              <Select
+                defaultValue="all"
+                style={{ flex: "1 1 auto", minWidth: 150, maxWidth: 200 }}
+                onChange={handleFilterChange}
+              >
+                <Option value="all">Barcha mahsulotlar</Option>
+                <Option value="runningOut">Tugayotgan mahsulotlar</Option>
+                <Option value="outOfStock">Tugagan mahsulotlar</Option>
+              </Select>
+            </div>
             <Table
-              dataSource={filteredData?.filter(st => st?.storeProduct != true)}
+              dataSource={filteredData?.filter(st => st?.storeProduct !== true)}
               loading={isLoading}
               columns={columns}
               pagination={{ pageSize: 20 }}
               rowClassName={rowClassName}
-              scroll={{ x: "max-content" }}
+              scroll={{ x: "max-content" }} // Горизонтальный скролл при необходимости
             />
           </Tabs.TabPane>
         )}
+
         {access?.adminlar && (
           <Tabs.TabPane
-            tab={
-              <Button type="default" icon={<UserAddOutlined />}>
-                Admin qo'shish
-              </Button>
-            }
+            tab={<Button type="default" icon={<UserAddOutlined />}>Admin qo'shish</Button>}
             key="2"
           >
             <Adminlar />
           </Tabs.TabPane>
         )}
+
         {access?.qarzdorlar && (
           <Tabs.TabPane
-            tab={
-              <Button type="default" icon={<TeamOutlined />} danger>
-                Qarzdorlar
-              </Button>
-            }
+            tab={<Button type="default" icon={<TeamOutlined />} danger>Qarzdorlar</Button>}
             key="3"
           >
             <Qarzdor />
@@ -683,36 +611,28 @@ export const Admin = () => {
 
         {access?.xisobot && (
           <Tabs.TabPane
-            tab={
-              <Button type="primary" icon={<BarChartOutlined />}>
-                Xisobot
-              </Button>
-            }
+            tab={<Button type="primary" icon={<BarChartOutlined />}>Xisobot</Button>}
             key="6"
           >
             <Xisobot />
           </Tabs.TabPane>
         )}
+
         {access?.sotuv_tarixi && (
           <Tabs.TabPane
-            tab={
-              <Button type="primary" icon={<HistoryOutlined />}>
-                Sotuv
-              </Button>
-            }
+            tab={<Button type="primary" icon={<HistoryOutlined />}>Sotuv</Button>}
             key="7"
           >
             <Sotuv_tarix />
           </Tabs.TabPane>
         )}
+
         {access?.SalesStatistics && (
-          <Tabs.TabPane
-            tab={<Button type="primary">statistika</Button>}
-            key="8"
-          >
+          <Tabs.TabPane tab={<Button type="primary">Statistika</Button>} key="8">
             <SalesStatistics />
           </Tabs.TabPane>
         )}
+
         {access?.dokon && (
           <Tabs.TabPane tab={<Button type="primary">Dokon</Button>} key="9">
             <StoreItem />
@@ -725,15 +645,22 @@ export const Admin = () => {
         onCancel={handleEditComplete}
         product={editingProduct}
         usdRate={usdRate}
+        width="90%" // Адаптивная ширина
+        style={{ maxWidth: 500, margin: "0 auto" }} // Ограничение размера на планшетах
       />
 
       <PrintBarcodeModal
         visible={isPrintModalOpen}
         onCancel={handlePrintModalClose}
         barcode={barcode}
+        width="90%" // Адаптивная ширина
+        style={{ maxWidth: 500, margin: "0 auto" }} // Центрирование и ограничение
       />
+
     </div>
   );
 };
 
 export default Admin;
+
+// bitdi

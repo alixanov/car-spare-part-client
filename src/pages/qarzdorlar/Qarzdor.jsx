@@ -213,6 +213,7 @@ export default function Qarzdor() {
           setListId("");
         }}
         width={400} // Modal oynasining kengligini o'rnatish
+        style={{ maxWidth: "90%", margin: "0 auto" }} // Ограничение ширины модального окна для больших экранов
       >
         <table className="table">
           <thead>
@@ -234,16 +235,64 @@ export default function Qarzdor() {
               ))}
           </tbody>
         </table>
+
+        {/* Responsive Styles */}
+        <style jsx>{`
+    @media (max-width: 768px) {
+      .ant-modal {
+        width: 90% !important; // Увеличиваем ширину модального окна на планшетах
+      }
+      .table td {
+        font-size: 14px; // Уменьшаем шрифт таблицы для планшетов
+        padding: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .ant-modal {
+        width: 100% !important; // Модальное окно занимает всю ширину экрана на мобильных
+      }
+      .table td {
+        font-size: 12px; // Еще больше уменьшаем шрифт для мобильных устройств
+        padding: 8px;
+      }
+    }
+  `}</style>
       </Modal>
+
       <Table
         dataSource={debtors}
         loading={isLoading}
         columns={columns}
         rowKey="_id"
         pagination={{ pageSize: 10 }}
-        size="small" // Stol kattaligini kichiklashtirish
-        style={{ fontSize: "12px" }} // Matn kattaligini kichiklashtirish
+        size="small" // Уменьшаем размер таблицы
+        style={{ fontSize: "12px", width: "100%" }} // Уменьшаем шрифт и делаем таблицу адаптивной по ширине
       />
+
+      {/* Responsive Styles */}
+      <style jsx>{`
+  @media (max-width: 768px) {
+    .ant-table {
+      font-size: 10px; // Уменьшаем шрифт таблицы для планшетов
+    }
+    .ant-table td {
+      padding: 8px; // Уменьшаем отступы в ячейках таблицы для планшетов
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ant-table {
+      font-size: 8px; // Еще больше уменьшаем шрифт таблицы для мобильных устройств
+    }
+    .ant-table td {
+      padding: 6px; // Уменьшаем отступы в ячейках таблицы для мобильных устройств
+    }
+  }
+`}</style>
+
     </div>
   );
 }
+
+// bitdi

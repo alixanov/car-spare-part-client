@@ -93,43 +93,48 @@ export default function SotuvTarix() {
     <Card
       title="Sotuvlar tarixi"
       bordered={false}
-      style={{ margin: 20, width: "100%" }}
+      style={{ margin: 20, width: "100%", marginLeft: -1 }}
     >
-      <div style={{ marginBottom: 20 }}>
-        <RangePicker onChange={onDateChange} style={{ marginRight: 20 }} />
+      <div style={{ marginBottom: 20, display: "flex", flexWrap: "wrap", gap: 10  }}>
+        <RangePicker onChange={onDateChange} style={{ marginRight: 20, width: "100%", maxWidth: 300 }} />
         <Select
           placeholder="To'lov usulini tanlang"
           onChange={onPaymentMethodChange}
-          style={{ width: 200, marginRight: 20 }}
+          style={{ width: "100%", maxWidth: 200 }}
         >
           <Option value="">Barchasi</Option>
           <Option value="naqd">Naqd</Option>
           <Option value="plastik">Karta</Option>
         </Select>
-        <Button type="primary" onClick={showDailySales}>
+        <Button type="primary" onClick={showDailySales} style={{ width: "100%", maxWidth: 150 }}>
           Bir kunlik savdo
         </Button>
       </div>
-      <Row gutter={16} style={{ marginBottom: 20 }}>
-        <Col span={8}>
+
+      <Row gutter={16} style={{ marginBottom: 20 }} wrap={true}>
+        <Col xs={24} sm={8}>
           <Statistic
             title="Umumiy summa"
             value={`${formatNumber(totalAmount)} so'm`}
+            style={{ textAlign: "center" }}
           />
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={8}>
           <Statistic
             title="Haftalik summa"
             value={`${formatNumber(weeklyAmount)} so'm`}
+            style={{ textAlign: "center" }}
           />
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={8}>
           <Statistic
             title="Kunlik summa"
             value={`${formatNumber(dailyAmount)} so'm`}
+            style={{ textAlign: "center" }}
           />
         </Col>
       </Row>
+
       <Table
         dataSource={filteredSales}
         loading={isLoading}
@@ -167,6 +172,7 @@ export default function SotuvTarix() {
         ]}
         rowKey="_id"
         pagination={{ pageSize: 10 }}
+        scroll={{ x: "max-content" }} // Горизонтальная прокрутка для таблицы
         summary={() => (
           <Table.Summary.Row>
             <Table.Summary.Cell colSpan={5} align="right">
@@ -174,6 +180,41 @@ export default function SotuvTarix() {
           </Table.Summary.Row>
         )}
       />
+
+      {/* Responsive Styles */}
+      <style jsx>{`
+    @media (max-width: 768px) {
+      .ant-statistic {
+        text-align: center; // Статистика выровнена по центру на планшетах
+      }
+      .ant-select,
+      .ant-picker,
+      .ant-btn {
+        width: 100% !important; // Поля ввода и кнопка занимают всю ширину на планшетах
+      }
+    }
+
+    @media (max-width: 480px) {
+      .ant-statistic {
+        text-align: center; // Статистика выровнена по центру на мобильных
+      }
+      .ant-select,
+      .ant-picker,
+      .ant-btn {
+        width: 100% !important; // Поля ввода и кнопка занимают всю ширину на мобильных устройствах
+      }
+      .ant-table {
+        font-size: 12px; // Уменьшаем шрифт таблицы для мобильных
+      }
+      .ant-table td, .ant-table th {
+        padding: 8px; // Уменьшаем отступы в таблице на мобильных устройствах
+      }
+      .ant-col {
+        margin-bottom: 10px; // Дополнительный отступ для колонок статистики на мобильных
+      }
+    }
+  `}</style>
     </Card>
+
   );
 }

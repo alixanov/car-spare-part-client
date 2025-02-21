@@ -166,7 +166,7 @@ export default function Vazvrat() {
     <div>
       <Select
         defaultValue="product_name"
-        style={{ width: 200, marginBottom: "20px" }}
+        style={{ width: 200, marginBottom: "20px" }} // Базовая ширина для десктопов
         onChange={(value) => setSearchType(value)}
       >
         <Option value="product_name">Mahsulot nomi</Option>
@@ -176,11 +176,30 @@ export default function Vazvrat() {
         <Option value="kimdan_kelgan">Kimdan kelgan</Option>
       </Select>
 
+      {/* Responsive Styles */}
+      <style jsx>{`
+  @media (max-width: 768px) {
+    .ant-select {
+      width: 100% !important; // Ширина компонента Select для планшетов
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ant-select {
+      width: 100% !important; // Ширина для мобильных устройств
+    }
+    .ant-select-selection-item {
+      font-size: 14px; // Уменьшение шрифта для мобильных
+    }
+  }
+`}</style>
+
+
       <Input
         placeholder="Qidiruv"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        style={{ width: "300px", marginBottom: "20px" }}
+        style={{ width: "300px", marginBottom: "20px" }} // Базовая ширина для десктопов
         size="large"
       />
 
@@ -193,15 +212,73 @@ export default function Vazvrat() {
         Qidirish
       </Button>
 
+      {/* Responsive Styles */}
+      <style jsx>{`
+  @media (max-width: 768px) {
+    .ant-input {
+      width: 100% !important; // Ширина поля ввода для планшетов
+      margin-bottom: 10px; // Уменьшение нижнего отступа
+    }
+    .ant-btn {
+      width: 100%; // Кнопка будет занимать всю ширину на планшетах
+      margin-left: 0; // Убираем отступ слева, чтобы кнопка была под полем ввода
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ant-input {
+      width: 100% !important; // Поле ввода занимает всю ширину на мобильных
+      font-size: 14px; // Уменьшаем размер шрифта для мобильных устройств
+    }
+    .ant-btn {
+      width: 100%; // Кнопка на мобильных также занимает всю ширину
+      font-size: 14px; // Уменьшаем размер текста в кнопке
+      margin-left: 0; // Убираем отступ слева
+    }
+  }
+`}</style>
+
+
       {selectedProduct && (
-        <Table dataSource={selectedProduct} rowKey="_id" columns={columns} />
+        <Table
+          dataSource={selectedProduct}
+          rowKey="_id"
+          columns={columns}
+          style={{ width: "100%", fontSize: "14px" }} // Базовый стиль таблицы
+        />
       )}
+
+      {/* Responsive Styles */}
+      <style jsx>{`
+  @media (max-width: 768px) {
+    .ant-table {
+      font-size: 12px; // Уменьшение шрифта для планшетов
+    }
+    .ant-table td {
+      padding: 8px; // Уменьшение отступов в ячейках таблицы для планшетов
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ant-table {
+      font-size: 10px; // Еще большее уменьшение шрифта для мобильных устройств
+    }
+    .ant-table td {
+      padding: 6px; // Уменьшение отступов в ячейках таблицы для мобильных устройств
+    }
+    .ant-table th {
+      font-size: 10px; // Уменьшение шрифта заголовков таблицы для мобильных
+    }
+  }
+`}</style>
+
 
       <Modal
         title="Mahsulotni qaytarish"
         open={isModalVisible}
         onCancel={handleCancel}
         footer={[]}
+        style={{ maxWidth: "90%", margin: "0 auto" }} // Ограничение ширины модального окна
       >
         <form
           style={{ display: "flex", flexDirection: "column", gap: "12px" }}
@@ -217,15 +294,48 @@ export default function Vazvrat() {
               border: "1px solid #ccc",
               height: "40px",
               paddingInline: "6px",
+              width: "100%", // Поле ввода адаптировано по ширине
             }}
             {...register("quantity")}
             type="number"
           />
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" block>
             Qaytarish
           </Button>
         </form>
+
+        {/* Responsive Styles */}
+        <style jsx>{`
+    @media (max-width: 768px) {
+      .ant-modal {
+        width: 90% !important; // Модальное окно занимает 90% экрана на планшетах
+      }
+      input {
+        height: 36px; // Уменьшаем высоту поля ввода на планшетах
+        font-size: 14px; // Уменьшаем шрифт для планшетов
+      }
+      .ant-btn {
+        font-size: 14px; // Уменьшаем шрифт кнопки на планшетах
+      }
+    }
+
+    @media (max-width: 480px) {
+      .ant-modal {
+        width: 100% !important; // Модальное окно занимает всю ширину экрана на мобильных
+      }
+      input {
+        height: 32px; // Еще больше уменьшаем высоту поля ввода на мобильных
+        font-size: 12px; // Уменьшаем шрифт для мобильных устройств
+      }
+      .ant-btn {
+        font-size: 12px; // Уменьшаем шрифт кнопки на мобильных
+      }
+    }
+  `}</style>
       </Modal>
+
     </div>
   );
 }
+
+//bitdi

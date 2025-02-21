@@ -118,3 +118,13 @@
   height: 120px;
 }
 
+
+@media(max-width: 419px) {
+.kassa-header {
+    width: 30%;}
+
+        .kassa-header > button{
+          margin-left: -5px;
+          padding: 2px;
+        }
+}

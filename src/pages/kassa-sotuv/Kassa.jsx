@@ -65,15 +65,15 @@ export default function Kassa() {
 
   const filteredProducts = searchTerm
     ? products?.filter(
-        (product) =>
-          product.product_name
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase()) ||
-          product.barcode.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          product.product_category
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase())
-      )
+      (product) =>
+        product.product_name
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase()) ||
+        product.barcode.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.product_category
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase())
+    )
     : [];
 
   const handleSelectProduct = (product) => {
@@ -289,7 +289,7 @@ export default function Kassa() {
             display: "flex",
           }}
         >
-          <h1 style={{ fontSize: "50px" }}>TRAVERSE</h1>
+          <h1 style={{ fontSize: "50px", textAlign: "center" }}>TRAVERSE</h1>
           <div className="chek_item">
             <p
               style={{
@@ -299,20 +299,18 @@ export default function Kassa() {
               }}
             >
               Bobur: <span>+99890 740 74 00</span> <br />
-              Abbosxon <span>+99890 214 14 41</span> <br />
-              Odilxon <span>+99891 292 99 22</span>
+              Abbosxon: <span>+99890 214 14 41</span> <br />
+              Odilxon: <span>+99891 292 99 22</span>
             </p>
           </div>
 
-          <p id="tgqr_p">
-            Телеграм каналимизга уланиш учун QR-кодни телефонингизда сканер
-            қилинг.
+          <p id="tgqr_p" style={{ textAlign: "center", fontSize: "16px" }}>
+            Телеграм каналимизга уланиш учун QR-кодни телефонингизда сканер қилинг.
             <img id="tgqr" src={tgqr} alt="" />
           </p>
           <div className="chek_item">
             <b>
-              Сана:{" "}
-              <b>{moment().tz("Asia/Tashkent").format("DD.MM.YYYY HH:mm")}</b>
+              Сана: <b>{moment().tz("Asia/Tashkent").format("DD.MM.YYYY HH:mm")}</b>
             </b>
           </div>
           <table className="table">
@@ -345,7 +343,7 @@ export default function Kassa() {
                     .reduce((a, b) => a + b.quantity * b.sell_price, 0)
                     .toLocaleString()}
                 </td>
-              </tr>{" "}
+              </tr>
               <br />
             </tbody>
           </table>
@@ -356,6 +354,53 @@ export default function Kassa() {
             Magazin <span>+99898 772 00 72</span> <br />
           </p>
         </div>
+
+        {/* Media Queries for Tablet and Mobile */}
+        <style jsx>{`
+    @media (max-width: 768px) {
+      .receipt {
+        width: 90%;
+      }
+      h1 {
+        font-size: 36px;
+      }
+      p {
+        font-size: 16px;
+      }
+      .chek_item p {
+        font-size: 16px;
+      }
+      table thead td {
+        font-size: 14px;
+      }
+      table tbody td {
+        font-size: 14px;
+        padding-block: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .receipt {
+        width: 100%;
+      }
+      h1 {
+        font-size: 28px;
+      }
+      p {
+        font-size: 14px;
+      }
+      .chek_item p {
+        font-size: 14px;
+      }
+      table thead td {
+        font-size: 12px;
+      }
+      table tbody td {
+        font-size: 12px;
+        padding-block: 8px;
+      }
+    }
+  `}</style>
       </Modal>
 
       <Modal
@@ -364,8 +409,26 @@ export default function Kassa() {
         onCancel={() => setQarzdorModalVisible(false)}
         footer={null}
         width="80%"
+        style={{ maxWidth: "800px", margin: "0 auto" }} // Ограничение максимальной ширины для больших экранов
       >
         <Qarzdor />
+
+        {/* Media Queries for Tablet and Mobile */}
+        <style jsx>{`
+    @media (max-width: 768px) {
+      .ant-modal {
+        width: 90% !important;
+        padding: 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .ant-modal {
+        width: 100% !important;
+        padding: 8px;
+      }
+    }
+  `}</style>
       </Modal>
 
       <Modal
@@ -374,8 +437,26 @@ export default function Kassa() {
         onCancel={() => setXarajatlarModalVisible(false)}
         footer={null}
         width="80%"
+        style={{ maxWidth: "800px", margin: "0 auto" }} // Ограничение максимальной ширины
       >
         <Xarajatlar />
+
+        {/* Media Queries for Tablet and Mobile */}
+        <style jsx>{`
+    @media (max-width: 768px) {
+      .ant-modal {
+        width: 90% !important; // Ширина для планшетов
+        padding: 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .ant-modal {
+        width: 100% !important; // Ширина для мобильных
+        padding: 8px;
+      }
+    }
+  `}</style>
       </Modal>
 
       <Modal
@@ -384,32 +465,67 @@ export default function Kassa() {
         onCancel={() => setVazvratModalVisible(false)}
         footer={null}
         width="80%"
+        style={{ maxWidth: "1150px", margin: "0 auto" }} // Ограничение максимальной ширины на больших экранах
       >
         <Vazvrat />
+
+        {/* Media Queries for Tablet and Mobile */}
+        <style jsx>{`
+    @media (max-width: 768px) {
+      .ant-modal {
+        width: 90% !important; // Ширина для планшетов
+        padding: 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .ant-modal {
+        width: 100% !important; // Ширина для мобильных
+        padding: 8px;
+      }
+    }
+  `}</style>
       </Modal>
 
       <div className="kassa-header">
         <Button
           type="primary"
           onClick={() => setQarzdorModalVisible(true)}
-          style={{ marginRight: 10 }}
+          style={{ marginRight: 10, marginBottom: 10 }}
         >
           Qarzdorlar
         </Button>
         <Button
           type="primary"
           onClick={() => setXarajatlarModalVisible(true)}
-          style={{ marginRight: 10 }}
+          style={{ marginRight: 10, marginBottom: 10 }}
         >
           Xarajatlar
         </Button>
         <Button
           type="primary"
           onClick={() => setVazvratModalVisible(true)}
-          style={{ marginRight: 10 }}
+          style={{ marginRight: 10, marginBottom: 10 }}
         >
-          Vazvrat tavarlar
+          Vazvrat
         </Button>
+
+        {/* Media Queries for Tablet and Mobile */}
+        <style jsx>{`
+    @media (max-width: 768px) {
+      .kassa-header {
+        display: flex;
+        flex-direction: column; // Размещение кнопок вертикально на планшетах
+        align-items: stretch;
+      }
+      .kassa-header button {
+        width: 100%; // Кнопки занимают всю ширину
+      }
+    }
+
+}
+    }
+  `}</style>
       </div>
 
       <Card
@@ -443,16 +559,8 @@ export default function Kassa() {
           loading={isLoading}
           style={{ width: "100%" }}
           columns={[
-            {
-              title: "Mahsulot nomi",
-              dataIndex: "product_name",
-              key: "product_name",
-            },
-            {
-              title: "Tan narxi",
-              dataIndex: "purchase_price",
-              key: "purchase_price",
-            },
+            { title: "Mahsulot nomi", dataIndex: "product_name", key: "product_name" },
+            { title: "Tan narxi", dataIndex: "purchase_price", key: "purchase_price" },
             {
               title: "Narxi (Som)",
               dataIndex: "sell_price",
@@ -475,24 +583,13 @@ export default function Kassa() {
             { title: "Qutisi", dataIndex: "packing_type", key: "packing_type" },
             { title: "Izoh", dataIndex: "special_notes", key: "special_notes" },
             { title: "Brend", dataIndex: "brand_name", key: "brand_name" },
-            {
-              title: "kimdan-kelgan",
-              dataIndex: "kimdan_kelgan",
-              key: "kimdan_kelgan",
-            },
-            {
-              title: "Katalogi ",
-              dataIndex: "product_category",
-              key: "product_category",
-            },
+            { title: "kimdan-kelgan", dataIndex: "kimdan_kelgan", key: "kimdan_kelgan" },
+            { title: "Katalogi ", dataIndex: "product_category", key: "product_category" },
             {
               title: "Harakatlar",
               key: "actions",
               render: (_, record) => (
-                <Button
-                  type="primary"
-                  onClick={() => handleSelectProduct(record)}
-                >
+                <Button type="primary" onClick={() => handleSelectProduct(record)}>
                   Tanlash
                 </Button>
               ),
@@ -509,24 +606,14 @@ export default function Kassa() {
               dataSource={selectedProducts}
               style={{ width: "100%" }}
               columns={[
-                {
-                  title: "Mahsulot nomi",
-                  dataIndex: "product_name",
-                  key: "product_name",
-                },
-                {
-                  title: "Tan narxi",
-                  dataIndex: "purchase_price",
-                  key: "purchase_price",
-                },
+                { title: "Mahsulot nomi", dataIndex: "product_name", key: "product_name" },
+                { title: "Tan narxi", dataIndex: "purchase_price", key: "purchase_price" },
                 {
                   title: "Narxi (Som)",
                   render: (_, record) => (
                     <AntdInput
                       value={record.sell_price}
-                      onChange={(e) =>
-                        handleSellPriceChange(record._id, e.target.value)
-                      }
+                      onChange={(e) => handleSellPriceChange(record._id, e.target.value)}
                     />
                   ),
                 },
@@ -543,12 +630,8 @@ export default function Kassa() {
                       >
                         -
                       </Button>
-                      <span style={{ margin: "0 10px" }}>
-                        {record.quantity}
-                      </span>
-                      <Button
-                        onClick={() => handleQuantityChange(record._id, 1)}
-                      >
+                      <span style={{ margin: "0 10px" }}>{record.quantity}</span>
+                      <Button onClick={() => handleQuantityChange(record._id, 1)}>
                         +
                       </Button>
                     </div>
@@ -558,11 +641,7 @@ export default function Kassa() {
                   title: "Harakatlar",
                   key: "actions",
                   render: (_, record) => (
-                    <Button
-                      type="primary"
-                      danger
-                      onClick={() => handleRemoveProduct(record._id)}
-                    >
+                    <Button type="primary" danger onClick={() => handleRemoveProduct(record._id)}>
                       O'chirish
                     </Button>
                   ),
@@ -576,11 +655,7 @@ export default function Kassa() {
               <strong>Umumiy summa: </strong>
               {totalAmount.toFixed(2)} so'm
             </div>
-            <Button
-              type="primary"
-              onClick={showModal}
-              style={{ marginTop: 20 }}
-            >
+            <Button type="primary" onClick={showModal} style={{ marginTop: 20 }}>
               Sotish
             </Button>
           </div>
@@ -608,16 +683,10 @@ export default function Kassa() {
             {paymentMethod === "qarz" && (
               <>
                 <Form.Item label="Qarz oluvchi ismi">
-                  <AntdInput
-                    value={debtorName}
-                    onChange={(e) => setDebtorName(e.target.value)}
-                  />
+                  <AntdInput value={debtorName} onChange={(e) => setDebtorName(e.target.value)} />
                 </Form.Item>
                 <Form.Item label="Qarz oluvchi telefon raqami">
-                  <AntdInput
-                    value={debtorPhone}
-                    onChange={(e) => setDebtorPhone(e.target.value)}
-                  />
+                  <AntdInput value={debtorPhone} onChange={(e) => setDebtorPhone(e.target.value)} />
                 </Form.Item>
                 <Form.Item label="Qarz muddatini kiriting">
                   <DatePicker
@@ -641,7 +710,44 @@ export default function Kassa() {
             </Form.Item>
           </Form>
         </Modal>
+
+        {/* Responsive Styles */}
+        <style jsx>{`
+    @media (max-width: 768px) {
+      #kassa {
+        width: 100%;
+      }
+      .ant-input {
+        width: 100% !important;
+      }
+      .ant-table {
+        font-size: 12px; // Уменьшаем шрифт таблицы для планшетов
+      }
+    }
+
+    @media (max-width: 480px) {
+      #kassa {
+        width: 100%;
+      }
+      .ant-input {
+        width: 100% !important;
+      }
+      .ant-table {
+        font-size: 10px; // Еще больше уменьшаем шрифт для мобильных
+      }
+      .ant-table th,
+      .ant-table td {
+        padding: 8px;
+      }
+      .ant-btn {
+        font-size: 14px;
+        padding: 6px 12px;
+      }
+    }
+  `}</style>
       </Card>
+
     </div>
   );
 }
+// bitdi

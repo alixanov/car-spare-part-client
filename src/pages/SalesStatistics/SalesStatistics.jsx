@@ -30,11 +30,17 @@ export default function SalesStatistics() {
   };
 
   return (
-    <div>
+    <div style={{ padding: "0 10px" }}>
       {stats.length > 0 && (
-        <Select defaultValue={selectedMonth} onChange={(value) => setSelectedMonth(value)}>
+        <Select
+          defaultValue={selectedMonth}
+          onChange={(value) => setSelectedMonth(value)}
+          style={{ width: "100%", marginBottom: "20px" }} // Выпадающий список занимает всю ширину
+        >
           {stats.map((st) => (
-            <Select.Option key={st.date} value={st.date}>{st.date}</Select.Option>
+            <Select.Option key={st.date} value={st.date}>
+              {st.date}
+            </Select.Option>
           ))}
         </Select>
       )}
@@ -46,6 +52,25 @@ export default function SalesStatistics() {
           <Bar dataKey="sold_quantity" fill="#1890ff" />
         </BarChart>
       </ResponsiveContainer>
+
+      {/* Responsive Styles */}
+      <style jsx>{`
+    @media (max-width: 768px) {
+      .ant-select {
+        width: 100%; // Выпадающий список занимает всю ширину на планшетах
+      }
+    }
+
+    @media (max-width: 480px) {
+      .ant-select {
+        width: 100%; // Выпадающий список на мобильных тоже занимает всю ширину
+      }
+      .ant-select-selection-item {
+        font-size: 14px; // Уменьшение шрифта для мобильных устройств
+      }
+    }
+  `}</style>
     </div>
+
   );
 }

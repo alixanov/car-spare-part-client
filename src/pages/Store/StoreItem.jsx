@@ -250,22 +250,60 @@ export default function StoreItem() {
   }
   return (
     <div>
-      <Modal open={quantityModal} footer={[]} title="Mahsulot sonini o'zgartirish" onCancel={() => setQuantityModal(false)}>
-        <form style={{ paddingInline: "12px", width: "100%", display: "flex", flexDirection: "column", gap: "12px" }} className="modal_form" onSubmit={handleSubmit(submitModal)}>
-          <input style={{ width: "100%", paddingInline: "6px", height: "40px", borderRadius: "5px", border: "1px solid #ccc" }} type="number" {...register("quantity")} placeholder="Mahsulot soni" />
-          <button style={{ background: "#000", width: "100%", height: "40px", borderRadius: "5px", color: "#fff" }}>O'zgartirish</button>
+      <Modal
+        open={quantityModal}
+        footer={[]}
+        title="Mahsulot sonini o'zgartirish"
+        onCancel={() => setQuantityModal(false)}
+        style={{ maxWidth: "90%", margin: "0 auto" }} // Адаптация модального окна для мобильных
+      >
+        <form
+          style={{
+            paddingInline: "12px",
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            gap: "12px",
+          }}
+          className="modal_form"
+          onSubmit={handleSubmit(submitModal)}
+        >
+          <input
+            style={{
+              width: "100%",
+              paddingInline: "6px",
+              height: "40px",
+              borderRadius: "5px",
+              border: "1px solid #ccc",
+            }}
+            type="number"
+            {...register("quantity")}
+            placeholder="Mahsulot soni"
+          />
+          <button
+            style={{
+              background: "#000",
+              width: "100%",
+              height: "40px",
+              borderRadius: "5px",
+              color: "#fff",
+            }}
+          >
+            O'zgartirish
+          </button>
         </form>
       </Modal>
-      <div style={{ display: "flex", marginBottom: 20 }}>
+
+      <div style={{ display: "flex", flexWrap: "wrap", marginBottom: 20, gap: 10 }}>
         <Input
           placeholder="Model, nomi yoki katalogi bo'yicha qidirish"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          style={{ marginRight: 10 }}
+          style={{ flex: "1 1 auto", minWidth: "250px" }} // Адаптация ширины поля ввода
         />
         <Select
           defaultValue="newlyAdded"
-          style={{ width: 200, marginLeft: 20 }}
+          style={{ flex: "1 1 auto", minWidth: "200px" }} // Адаптация ширины Select
           onChange={handleFilterChange}
         >
           <Option value="newlyAdded">Yangi qo'shilgan mahsulotlar</Option>
@@ -274,20 +312,24 @@ export default function StoreItem() {
           <Option value="outOfStock">Tugagan mahsulotlar</Option>
         </Select>
       </div>
+
       <AddProductToStore refetchProducts={refetchProducts} />
+
       <Table
         dataSource={filteredStoreProducts}
         loading={storeLoading}
         columns={columns}
         rowKey="_id"
         pagination={{ pageSize: 20 }}
-        scroll={{ x: "max-content" }}
+        scroll={{ x: "max-content" }} // Горизонтальная прокрутка таблицы
       />
+
       <PrintBarcodeModal
         visible={isModalVisible}
         onCancel={handleCancel}
         barcode={selectedBarcode}
       />
+
       <EditProductModal
         visible={isEditModalVisible}
         onCancel={handleEditComplete}
@@ -295,6 +337,33 @@ export default function StoreItem() {
         onSave={refetchProducts}
         isStore={true}
       />
+
+      {/* Responsive Styles */}
+      <style jsx>{`
+    @media (max-width: 768px) {
+      .ant-input,
+      .ant-select {
+        width: 100%; // Поля поиска и Select занимают всю ширину на планшетах
+      }
+      .ant-modal {
+        width: 90% !important; // Модальные окна занимают 90% экрана на планшетах
+      }
+    }
+
+    @media (max-width: 480px) {
+      .ant-input,
+      .ant-select {
+        width: 100%; // Поля поиска и Select занимают всю ширину на мобильных
+      }
+      .ant-table {
+        font-size: 12px; // Уменьшение шрифта таблицы на мобильных устройствах
+      }
+      .ant-modal {
+        width: 100% !important; // Модальные окна занимают всю ширину экрана на мобильных
+      }
+    }
+  `}</style>
     </div>
+
   );
 }

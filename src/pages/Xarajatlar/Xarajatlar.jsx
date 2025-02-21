@@ -69,7 +69,7 @@ export default function Xarajatlar() {
       <Button
         type="primary"
         onClick={showModal}
-        style={{ marginBottom: "10px" }}
+        style={{ marginBottom: "10px", width: "100%" }} // Ширина кнопки 100% для адаптации
       >
         Xarajat Qo'shish
       </Button>
@@ -79,7 +79,7 @@ export default function Xarajatlar() {
         visible={isModalVisible}
         onCancel={handleCancel}
         footer={null}
-        style={{ marginTop: "50px" }}
+        style={{ marginTop: "50px", maxWidth: "90%", margin: "0 auto" }} // Ограничение ширины модального окна
       >
         <Form layout="vertical" form={form} onFinish={handleFinish}>
           <Form.Item
@@ -107,16 +107,74 @@ export default function Xarajatlar() {
             </Button>
           </Form.Item>
         </Form>
+
+        {/* Responsive Styles */}
+        <style jsx>{`
+    @media (max-width: 768px) {
+      .ant-modal {
+        width: 90% !important; // Модальное окно занимает 90% ширины экрана на планшетах
+      }
+      .ant-form-item {
+        font-size: 14px; // Уменьшаем шрифт формы на планшетах
+      }
+    }
+
+    @media (max-width: 480px) {
+      .ant-modal {
+        width: 100% !important; // Модальное окно на мобильных устройствах занимает всю ширину
+      }
+      .ant-form-item {
+        font-size: 12px; // Уменьшаем шрифт формы на мобильных
+      }
+      .ant-input {
+        font-size: 12px; // Уменьшаем шрифт для полей ввода на мобильных
+      }
+      .ant-btn {
+        font-size: 14px; // Уменьшаем размер кнопки на мобильных
+      }
+    }
+  `}</style>
       </Modal>
 
       <Table
         dataSource={expenses}
         columns={columns}
         loading={isGetLoading}
-        pagination={{ pageSize: 5 }} // Har bir sahifada 5 ta yozuv
+        pagination={{ pageSize: 5 }} // На каждой странице отображается 5 записей
+        style={{ width: "100%", fontSize: "14px" }} // Устанавливаем базовый стиль и ширину
       />
 
-  
+      {/* Responsive Styles */}
+      <style jsx>{`
+  @media (max-width: 768px) {
+    .ant-table {
+      font-size: 12px; // Уменьшаем шрифт для планшетов
+    }
+    .ant-table td {
+      padding: 8px; // Уменьшаем отступы в ячейках на планшетах
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ant-table {
+      font-size: 10px; // Еще больше уменьшаем шрифт для мобильных устройств
+    }
+    .ant-table td {
+      padding: 6px; // Уменьшаем отступы в ячейках для мобильных устройств
+    }
+    .ant-pagination {
+      font-size: 12px; // Уменьшаем шрифт пагинации на мобильных устройствах
+    }
+    .ant-pagination-item {
+      padding: 6px; // Уменьшаем отступы у элементов пагинации
+    }
+  }
+`}</style>
+
+
+
     </div>
   );
 }
+
+// bitdi
