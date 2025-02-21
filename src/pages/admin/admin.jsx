@@ -11,7 +11,20 @@ import {
   Tabs,
   Table,
   AutoComplete,
+  Drawer, Menu
 } from "antd";
+
+
+
+
+
+
+
+
+
+
+
+
 import { Popconfirm } from "antd";
 import "antd/dist/reset.css";
 import { Option } from "antd/es/mentions";
@@ -22,6 +35,7 @@ import {
   useDeleteProductMutation,
   useUpdateProductMutation,
 } from "../../context/service/addproduct.service";
+
 import {
   PlusOutlined,
   UserAddOutlined,
@@ -32,6 +46,9 @@ import {
   DeleteOutlined,
   HistoryOutlined,
 } from "@ant-design/icons";
+
+
+
 import Adminlar from "../Adminlar/Adminlar";
 import Sotuv_tarix from "../sotuv-tarix/Sotuv_tarix";
 import Qarzdor from "../qarzdorlar/Qarzdor";
@@ -48,6 +65,7 @@ import PrintButton from "./PrintButton"; // PrintButton komponentini import qili
 import SalesStatistics from "../SalesStatistics/SalesStatistics";
 import { FaPrint } from "react-icons/fa";
 import { BiTransfer } from "react-icons/bi";
+
 
 export const Admin = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal oynasi holatini boshqarish
@@ -403,6 +421,15 @@ export const Admin = () => {
         product.model.toLowerCase().includes(searchText.toLowerCase())
     )
     .sort((a, b) => a.stock - b.stock); // Qolgan miqdorga ko'ra tartiblash
+  
+  const [sidebarVisible, setSidebarVisible] = useState(false);
+  const [activeTab, setActiveTab] = useState("1");
+
+  const handleMenuClick = (key) => {
+    setActiveTab(key);
+    setSidebarVisible(false);
+  };
+
 
   return (
     <div className="admin-container">
@@ -541,104 +568,218 @@ export const Admin = () => {
           </Form.Item>
         </Form>
       </Modal>
-
-      <Tabs
-        defaultActiveKey="1"
-        style={{ flexGrow: 1, width: "100%", overflowX: "auto" }} // Прокрутка на маленьких экранах
-        tabBarStyle={{ flexWrap: "wrap" }} // Вкладки оборачиваются при нехватке места
-      >
-        {access?.skaladorlar && (
-          <Tabs.TabPane
-            tab={
-              <Button type="primary" icon={<UserAddOutlined />}>
-                Sklad tavar qo'shish
-              </Button>
-            }
-            key="1"
+    
+        <div className="desktop-tabs">
+          <Tabs
+            defaultActiveKey="1"
+            style={{ flexGrow: 1, width: "100%", overflowX: "auto" }}
+            tabBarStyle={{ flexWrap: "wrap" }}
           >
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 10 }}>
-              <Button
-                type="primary"
-                onClick={showModal}
-                style={{ backgroundColor: "#52c41a", borderColor: "#52c41a" }}
-                icon={<PlusOutlined />}
+            {access?.skaladorlar && (
+              <Tabs.TabPane
+                tab={<Button type="primary" icon={<UserAddOutlined />}>Sklad tavar qo'shish</Button>}
+                key="1"
               >
-                Omborga Mahsulot qo'shish +
-              </Button>
-              <Input.Search
-                placeholder="Mahsulot nomi yoki modeli bo'yicha qidirish..."
-                onChange={(e) => handleSearch(e.target.value)}
-                style={{ flex: "1 1 auto", minWidth: 200, maxWidth: 300 }} // Автоматическая адаптация
-              />
-              <Select
-                defaultValue="all"
-                style={{ flex: "1 1 auto", minWidth: 150, maxWidth: 200 }}
-                onChange={handleFilterChange}
+                {/* Content for Sklad */}
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 10 }}>
+                  <Button
+                    type="primary"
+                    onClick={showModal}
+                    style={{ backgroundColor: "#52c41a", borderColor: "#52c41a" }}
+                    icon={<PlusOutlined />}
+                  >
+                    Omborga Mahsulot qo'shish +
+                  </Button>
+                <div className="custom-search">
+                  <input
+                    type="text"
+                    className="custom-input"
+                    placeholder="Mahsulot nomi yoki modeli bo'yicha qidirish..."
+                    onChange={(e) => handleSearch(e.target.value)}
+                  />
+                  <button className="custom-button">Izlash</button>
+                </div>
+
+                  <Select
+                    defaultValue="all"
+                    style={{ flex: "1 1 auto", minWidth: 150, maxWidth: 200 }}
+                    onChange={handleFilterChange}
+                  >
+                    <Option value="all">Barcha mahsulotlar</Option>
+                    <Option value="runningOut">Tugayotgan mahsulotlar</Option>
+                    <Option value="outOfStock">Tugagan mahsulotlar</Option>
+                  </Select>
+                </div>
+                <Table
+                  dataSource={filteredData?.filter(st => st?.storeProduct !== true)}
+                  loading={isLoading}
+                  columns={columns}
+                  pagination={{ pageSize: 20 }}
+                  rowClassName={rowClassName}
+                  scroll={{ x: "max-content" }}
+                />
+              </Tabs.TabPane>
+            )}
+
+            {access?.adminlar && (
+              <Tabs.TabPane
+                tab={<Button type="default" icon={<UserAddOutlined />}>Admin qo'shish</Button>}
+                key="2"
               >
-                <Option value="all">Barcha mahsulotlar</Option>
-                <Option value="runningOut">Tugayotgan mahsulotlar</Option>
-                <Option value="outOfStock">Tugagan mahsulotlar</Option>
-              </Select>
-            </div>
-            <Table
-              dataSource={filteredData?.filter(st => st?.storeProduct !== true)}
-              loading={isLoading}
-              columns={columns}
-              pagination={{ pageSize: 20 }}
-              rowClassName={rowClassName}
-              scroll={{ x: "max-content" }} // Горизонтальный скролл при необходимости
-            />
-          </Tabs.TabPane>
-        )}
+                <Adminlar />
+              </Tabs.TabPane>
+            )}
 
-        {access?.adminlar && (
-          <Tabs.TabPane
-            tab={<Button type="default" icon={<UserAddOutlined />}>Admin qo'shish</Button>}
-            key="2"
+            {access?.qarzdorlar && (
+              <Tabs.TabPane
+                tab={<Button type="default" icon={<TeamOutlined />} danger>Qarzdorlar</Button>}
+                key="3"
+              >
+                <Qarzdor />
+              </Tabs.TabPane>
+            )}
+
+            {access?.xisobot && (
+              <Tabs.TabPane
+                tab={<Button type="primary" icon={<BarChartOutlined />}>Xisobot</Button>}
+                key="6"
+              >
+                <Xisobot />
+              </Tabs.TabPane>
+            )}
+
+            {access?.sotuv_tarixi && (
+              <Tabs.TabPane
+                tab={<Button type="primary" icon={<HistoryOutlined />}>Sotuv</Button>}
+                key="7"
+              >
+                <Sotuv_tarix />
+              </Tabs.TabPane>
+            )}
+          </Tabs>
+        </div>
+
+        {/* Mobile Sidebar */}
+        <div className="mobile-sidebar">
+        <Button
+          type="primary"
+          onClick={() => setSidebarVisible(true)}
+          style={{ marginBottom: 15 }}
+
+        >
+          Меню
+        </Button>
+
+
+          <Drawer
+            title="Меню"
+            placement="left"
+            onClose={() => setSidebarVisible(false)}
+            visible={sidebarVisible}
           >
-            <Adminlar />
-          </Tabs.TabPane>
-        )}
+            <Menu mode="inline" selectedKeys={[activeTab]} onClick={(e) => handleMenuClick(e.key)}>
+              {access?.skaladorlar && (
+                <Menu.Item key="1" icon={<UserAddOutlined />}>
+                  Sklad tavar qo'shish
+                </Menu.Item>
+              )}
+              {access?.adminlar && (
+                <Menu.Item key="2" icon={<UserAddOutlined />}>
+                  Admin qo'shish
+                </Menu.Item>
+              )}
+              {access?.qarzdorlar && (
+                <Menu.Item key="3" icon={<TeamOutlined />}>
+                  Qarzdorlar
+                </Menu.Item>
+              )}
+              {access?.xisobot && (
+                <Menu.Item key="6" icon={<BarChartOutlined />}>
+                  Xisobot
+                </Menu.Item>
+              )}
+              {access?.sotuv_tarixi && (
+                <Menu.Item key="7" icon={<HistoryOutlined />}>
+                  Sotuv tarixi
+                </Menu.Item>
+              )}
+            </Menu>
+          </Drawer>
 
-        {access?.qarzdorlar && (
-          <Tabs.TabPane
-            tab={<Button type="default" icon={<TeamOutlined />} danger>Qarzdorlar</Button>}
-            key="3"
-          >
-            <Qarzdor />
-          </Tabs.TabPane>
-        )}
+          {/* Mobile Content */}
+          <div className="mobile-content">
+            {activeTab === "1" && (
+              <div>
+                {/* Content for Sklad on mobile */}
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 10 }}>
+                  <Button
+                    type="primary"
+                    onClick={showModal}
+                    style={{ backgroundColor: "#52c41a", borderColor: "#52c41a",marginTop:10 }}
+                    icon={<PlusOutlined />}
+                  >
+                    Omborga Mahsulot qo'shish +
+                </Button>
+                
+                <div className="custom-search">
+                  <input
+                    type="text"
+                    className="custom-input"
+                    placeholder="Mahsulot nomi yoki modeli bo'yicha qidirish..."
+                    onChange={(e) => handleSearch(e.target.value)}
+                  />
+                  <button className="custom-button">Izlash</button>
+                </div>
 
-        {access?.xisobot && (
-          <Tabs.TabPane
-            tab={<Button type="primary" icon={<BarChartOutlined />}>Xisobot</Button>}
-            key="6"
-          >
-            <Xisobot />
-          </Tabs.TabPane>
-        )}
+                
+                  <Select
+                    defaultValue="all"
+                    style={{ flex: "1 1 auto", minWidth: 150, maxWidth: 200 }}
+                    onChange={handleFilterChange}
+                  >
+                    <Option value="all">Barcha mahsulotlar</Option>
+                    <Option value="runningOut">Tugayotgan mahsulotlar</Option>
+                    <Option value="outOfStock">Tugagan mahsulotlar</Option>
+                  </Select>
+                </div>
+                <Table
+                  dataSource={filteredData?.filter(st => st?.storeProduct !== true)}
+                  loading={isLoading}
+                  columns={columns}
+                  pagination={{ pageSize: 20 }}
+                  rowClassName={rowClassName}
+                  scroll={{ x: "max-content" }}
+                />
+              </div>
+            )}
 
-        {access?.sotuv_tarixi && (
-          <Tabs.TabPane
-            tab={<Button type="primary" icon={<HistoryOutlined />}>Sotuv</Button>}
-            key="7"
-          >
-            <Sotuv_tarix />
-          </Tabs.TabPane>
-        )}
+            {activeTab === "2" && <Adminlar />}
+            {activeTab === "3" && <Qarzdor />}
+            {activeTab === "6" && <Xisobot />}
+            {activeTab === "7" && <Sotuv_tarix />}
+          </div>
 
-        {access?.SalesStatistics && (
-          <Tabs.TabPane tab={<Button type="primary">Statistika</Button>} key="8">
-            <SalesStatistics />
-          </Tabs.TabPane>
-        )}
+        {/* Responsive styles */}
+        <style jsx>{`
+        .desktop-tabs {
+          display: block;
+        }
+        .mobile-sidebar {
+          display: none;
+        }
 
-        {access?.dokon && (
-          <Tabs.TabPane tab={<Button type="primary">Dokon</Button>} key="9">
-            <StoreItem />
-          </Tabs.TabPane>
-        )}
-      </Tabs>
+        @media (max-width: 768px) {
+          .desktop-tabs {
+            display: none;
+          }
+          .mobile-sidebar {
+            display: block;
+          }
+        }
+      `}</style>
+      </div>
+      
+
 
       <EditProductModal
         visible={isEditModalOpen}

@@ -10,6 +10,7 @@ import {
   Form,
   Input as AntdInput,
   DatePicker,
+  Drawer
 } from "antd";
 import {
   useGetAllProductsQuery,
@@ -262,6 +263,7 @@ export default function Kassa() {
     setSelectedProducts(updatedProducts);
   };
   console.log(selectedProducts);
+  
 
   return (
     <div className="kassa-container">
