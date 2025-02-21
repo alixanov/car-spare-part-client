@@ -11,34 +11,35 @@ import {
 } from "antd";
 import { useGetSalesHistoryQuery } from "../../context/service/sale.service"; // Sale service import qilish
 
-const { RangePicker } = DatePicker;
 const { Option } = Select;
 
 export default function SotuvTarix() {
   const { data: sales, isLoading } = useGetSalesHistoryQuery(); // Sotuvlar tarixini olish
   const [filteredSales, setFilteredSales] = useState([]); // Filtrlangan sotuvlar uchun state
-  const [selectedDateRange, setSelectedDateRange] = useState([null, null]); // Sana intervali uchun state
+  const [selectedDate, setSelectedDate] = useState(null); // Sana uchun state
   const [paymentMethod, setPaymentMethod] = useState(""); // To'lov usuli uchun state
 
-  // Sana intervali o'zgarganda chaqiriladigan funksiya
-  const onDateChange = (dates) => {
-    setSelectedDateRange(dates);
-    filterSales(dates, paymentMethod);
+  // Sana o'zgarganda chaqiriladigan funksiya
+  const onDateChange = (date) => {
+    setSelectedDate(date);
+    filterSales(date, paymentMethod);
   };
 
   // To'lov usuli tanlanganda chaqiriladigan funksiya
   const onPaymentMethodChange = (value) => {
     setPaymentMethod(value);
-    filterSales(selectedDateRange, value);
+    filterSales(selectedDate, value);
   };
 
   // Filtrlash funksiyasi
-  const filterSales = (dates, payment) => {
+  const filterSales = (date, payment) => {
     let filtered = sales || [];
-    if (dates && dates[0] && dates[1]) {
+    if (date) {
+      const startOfDay = new Date(date).setHours(0, 0, 0, 0);
+      const endOfDay = new Date(date).setHours(23, 59, 59, 999);
       filtered = filtered.filter((sale) => {
         const saleDate = new Date(sale.createdAt);
-        return saleDate >= dates[0] && saleDate <= dates[1];
+        return saleDate >= startOfDay && saleDate <= endOfDay;
       });
     }
     if (payment) {
@@ -84,19 +85,24 @@ export default function SotuvTarix() {
   // Bir kunlik savdo tarixini ko'rsatish funksiyasi
   const showDailySales = () => {
     const today = new Date();
-    const startOfDay = new Date(today.setHours(0, 0, 0, 0));
-    const endOfDay = new Date(today.setHours(23, 59, 59, 999));
-    filterSales([startOfDay, endOfDay], paymentMethod);
+    setSelectedDate(today);
+    filterSales(today, paymentMethod);
   };
 
   return (
     <Card
       title="Sotuvlar tarixi"
       bordered={false}
-      style={{ margin: 20, width: "100%", marginLeft: -1 }}
+      style={{ margin: 20, width: "100%", marginLeft: -1 ,marginTop:-2}}
     >
-      <div style={{ marginBottom: 20, display: "flex", flexWrap: "wrap", gap: 10  }}>
-        <RangePicker onChange={onDateChange} style={{ marginRight: 20, width: "100%", maxWidth: 300 }} />
+      <div style={{ marginBottom: 20, display: "flex", flexWrap: "wrap", gap: 10 }}>
+        <DatePicker
+          onChange={onDateChange}
+          value={selectedDate}
+          format="YYYY-MM-DD"
+          placeholder="Sanani tanlang"
+          style={{ marginRight: 20, width: "100%", maxWidth: 200 }}
+        />
         <Select
           placeholder="To'lov usulini tanlang"
           onChange={onPaymentMethodChange}
@@ -173,48 +179,7 @@ export default function SotuvTarix() {
         rowKey="_id"
         pagination={{ pageSize: 10 }}
         scroll={{ x: "max-content" }} // Горизонтальная прокрутка для таблицы
-        summary={() => (
-          <Table.Summary.Row>
-            <Table.Summary.Cell colSpan={5} align="right">
-            </Table.Summary.Cell>
-          </Table.Summary.Row>
-        )}
       />
-
-      {/* Responsive Styles */}
-      <style jsx>{`
-    @media (max-width: 768px) {
-      .ant-statistic {
-        text-align: center; // Статистика выровнена по центру на планшетах
-      }
-      .ant-select,
-      .ant-picker,
-      .ant-btn {
-        width: 100% !important; // Поля ввода и кнопка занимают всю ширину на планшетах
-      }
-    }
-
-    @media (max-width: 480px) {
-      .ant-statistic {
-        text-align: center; // Статистика выровнена по центру на мобильных
-      }
-      .ant-select,
-      .ant-picker,
-      .ant-btn {
-        width: 100% !important; // Поля ввода и кнопка занимают всю ширину на мобильных устройствах
-      }
-      .ant-table {
-        font-size: 12px; // Уменьшаем шрифт таблицы для мобильных
-      }
-      .ant-table td, .ant-table th {
-        padding: 8px; // Уменьшаем отступы в таблице на мобильных устройствах
-      }
-      .ant-col {
-        margin-bottom: 10px; // Дополнительный отступ для колонок статистики на мобильных
-      }
-    }
-  `}</style>
     </Card>
-
   );
 }
