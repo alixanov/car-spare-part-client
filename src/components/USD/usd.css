@@ -11,3 +11,55 @@
      height: 30px;
      /* Общая высота для input и button */
 }
+.custom-col {
+     /* Основной стиль для десктопов */
+     display: flex;
+     justify-content: flex-start;
+     /* Выравнивание кнопки влево */
+     align-items: center;
+     /* Вертикальное выравнивание */
+}
+
+/* Стили кнопки */
+.custom-button {
+     margin-left: 20px;
+     /* Отступ слева */
+     padding: 10px 20px;
+     font-size: 16px;
+     transition: background-color 0.3s ease;
+}
+
+/* Адаптация для планшетов */
+@media (max-width: 768px) {
+     .custom-col {
+          width: 100%;
+          /* Колонка занимает всю ширину */
+          margin-bottom: 10px;
+          /* Отступ снизу для визуального разделения */
+          justify-content: center;
+          /* Центрируем кнопку на планшетах */
+     }
+
+     .custom-button {
+          width: 100%;
+          /* Кнопка растягивается на всю ширину */
+          margin-left: 0;
+          /* Убираем отступ слева */
+          font-size: 14px;
+          /* Уменьшаем размер шрифта на мобильных */
+          padding: 10px;
+          /* Уменьшаем отступы */
+     }
+}
+
+/* Адаптация для мобильных устройств */
+@media (max-width: 480px) {
+     .custom-button {
+          width: 100%;
+          /* Кнопка растягивается на всю ширину */
+          font-size: 14px;
+          /* Уменьшаем размер шрифта */
+          padding: 8px;
+          /* Уменьшаем отступы для компактности */
+     }
+}

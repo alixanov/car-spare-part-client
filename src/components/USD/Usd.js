@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Input, Button, message } from "antd";
+import { Row, Col, Input, Button as AntButton, message } from "antd"; // Переименуем Ant Design Button в AntButton
 import {
   useGetUsdRateQuery,
   useUpdateUsdRateMutation,
 } from "../../context/service/usd.service"; // USD kursi uchun xizmat
-import "./usd.css"
+import "./usd.css";
+
+import { SaveOutlined } from '@ant-design/icons'; // Иконка для мобильных устройств из Ant Design
+import { useMediaQuery } from '@mui/material'; // Хук для проверки ширины экрана
 
 export default function Usd() {
   const { data: usdRateData, isLoading: isUsdRateLoading } =
@@ -28,6 +31,8 @@ export default function Usd() {
     }
   };
 
+  const isMobile = useMediaQuery('(max-width: 768px)');
+
   return (
     <div className="admin-buttons">
       <Row>
@@ -36,18 +41,27 @@ export default function Usd() {
             placeholder="Bugungi USD kursini kiriting"
             value={usdRate}
             onChange={(e) => setUsdRate(e.target.value)}
-       
-
           />
         </Col>
         <Col span={4}>
-          <Button
-            style={{ marginLeft: 20 }}
-            type="primary"
-            onClick={handleUsdRateChange}
-          >
-            Saqlash
-          </Button>
+          {/* Если мобильное устройство, показываем иконку, иначе текст */}
+          {isMobile ? (
+            <AntButton
+              type="primary"
+              shape="circle"
+              icon={<SaveOutlined />} // Используем иконку SaveOutlined от Ant Design
+              onClick={handleUsdRateChange}
+              style={{ marginLeft: 20 }}
+            />
+          ) : (
+            <AntButton
+              style={{ marginLeft: 20 }}
+              type="primary"
+              onClick={handleUsdRateChange}
+            >
+              Saqlash
+            </AntButton>
+          )}
         </Col>
       </Row>
     </div>

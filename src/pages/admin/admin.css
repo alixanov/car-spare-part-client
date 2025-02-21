@@ -264,4 +264,9 @@
     padding: 0 12px;
     border-radius: 8px;
   }
+        .custom-input{
+          width: 370px;
+          height: 44px;
+          border-radius: 30px;
+        }
 }

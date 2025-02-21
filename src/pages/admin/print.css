@@ -1,0 +1,25 @@
+.print-button {
+     display: flex;
+     align-items: center;
+          margin-left: -10px;
+}
+
+.print-icon {
+     font-size: 16px;
+     margin-right: 8px;
+}
+
+/* Медиазапрос для мобильных устройств */
+@media (max-width: 768px) {
+     .print-text {
+          display: none;
+          /* Скрываем текст на мобильных */
+     }
+
+     .print-button {
+          padding: 0 12px;
+          /* Делаем кнопку более компактной на мобильных */
+     }
+
+     
+}
