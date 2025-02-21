@@ -590,15 +590,16 @@ export const Admin = () => {
                   >
                     Omborga Mahsulot qo'shish +
                   </Button>
-                <div className="custom-search">
+                <div className="search-container">
                   <input
                     type="text"
-                    className="custom-input"
+                    className="search-input"
                     placeholder="Mahsulot nomi yoki modeli bo'yicha qidirish..."
                     onChange={(e) => handleSearch(e.target.value)}
                   />
-                  <button className="custom-button">Izlash</button>
+                  <button className="search-button">Izlash</button>
                 </div>
+
 
                   <Select
                     defaultValue="all"
@@ -721,14 +722,14 @@ export const Admin = () => {
                     Omborga Mahsulot qo'shish +
                 </Button>
                 
-                <div className="custom-search">
+                <div className="search-container">
                   <input
                     type="text"
-                    className="custom-input"
+                    className="search-input"
                     placeholder="Mahsulot nomi yoki modeli bo'yicha qidirish..."
                     onChange={(e) => handleSearch(e.target.value)}
                   />
-                  <button className="custom-button">Izlash</button>
+                  <button className="search-button">Izlash</button>
                 </div>
 
                 

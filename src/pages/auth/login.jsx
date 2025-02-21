@@ -1,20 +1,21 @@
-import React, { memo } from "react";
+import React, { useState, memo } from "react";
 import "./login.css";
-import { json, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Spin } from "antd"; // Импортируем Spin для анимации загрузки
 
 export const Login = memo(() => {
+  const [isLoading, setIsLoading] = useState(false); // Состояние для отслеживания загрузки
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    
     e.preventDefault();
+    setIsLoading(true); // Устанавливаем состояние загрузки
+
     const value = Object.fromEntries(new FormData(e.target));
 
     try {
-      const res = await axios.post("https://car-spare-part-server.vercel.app/api/login",
-        value
-      );
+      const res = await axios.post("https://car-spare-part-server.vercel.app/api/login", value);
       console.log(res.data);
 
       const token = res.data.token;
@@ -25,12 +26,17 @@ export const Login = memo(() => {
       localStorage.setItem("acsess", JSON.stringify(acsess));
       localStorage.setItem("role", role);
 
-      window.location.reload();
-      navigate("/");
-      if (role === "admin") {
-        navigate("/admin");
-      }
+      setTimeout(() => {
+        setIsLoading(false); // Снимаем состояние загрузки после 2 секунд
+        window.location.reload();
+        navigate("/");
+
+        if (role === "admin") {
+          navigate("/admin");
+        }
+      }, 2000); // Таймер на 2 секунды
     } catch (error) {
+      setIsLoading(false); // Если ошибка, снимаем состояние загрузки
       console.error("API xatosi:", error.response?.data || error.message);
     }
   };
@@ -52,7 +58,10 @@ export const Login = memo(() => {
         </label>
 
         <label>
-          <input type="submit" value="Kirish" />
+          {/* Отображаем кнопку с загрузкой */}
+          <button type="submit" disabled={isLoading} className={isLoading ? "loading" : ""}>
+            {isLoading ? <Spin /> : "Kirish"}
+          </button>
         </label>
       </form>
     </div>

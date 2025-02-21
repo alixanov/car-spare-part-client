@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;800;900&display=swap);
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;800;900&display=swap");
 
 .hisobot_container {
   width: 100%;
@@ -7,37 +7,38 @@
   gap: 12px;
   justify-content: center;
   flex-wrap: wrap;
-  /* Добавляем возможность переноса для мобильных */
+  padding: 10px;
 }
 
 .hisobot_card {
-  width: 220px;
-  height: 140px;
+  width: clamp(140px, 20vw, 220px);
+  /* Гибкое масштабирование */
+  height: clamp(100px, 12vw, 140px);
   display: flex;
-  padding: 5px;
+  padding: 8px;
   background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-  border-radius: 8px;
+  border-radius: 10px;
   flex-direction: column-reverse;
-  gap: 10px;
+  gap: 8px;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-size: clamp(14px, 1.8vw, 20px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 .hisobot_card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
 }
 
 .hisobot_card>b {
-  font-size: 25px;
+  font-size: clamp(16px, 2.2vw, 25px);
   height: 55px;
   width: 100%;
   display: flex;
   justify-content: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   align-items: center;
   font-weight: bold;
   color: #343a40;
@@ -46,22 +47,24 @@
 .hisobot_card>p {
   width: 100%;
   text-align: center;
-  height: 55px;
-  font-family: 'Poppins', sans-serif;
+  height: 50px;
+  font-family: "Poppins", sans-serif;
   display: flex;
   justify-content: center;
-  align-items: end;
-  font-size: 16px;
+  align-items: flex-end;
+  font-size: clamp(12px, 1.6vw, 16px);
   color: #495057;
 }
 
-/* Адаптация для планшетов */
+/* 📲 Адаптация для планшетов */
 @media (max-width: 768px) {
+  .hisobot_container {
+    gap: 10px;
+  }
+
   .hisobot_card {
     width: 180px;
-    /* Уменьшаем размер карточек */
     height: 120px;
-    font-size: 18px;
   }
 
   .hisobot_card>b {
@@ -73,28 +76,42 @@
   }
 }
 
-/* Адаптация для мобильных устройств */
+/* 📱 Адаптация для мобильных */
 @media (max-width: 480px) {
   .hisobot_container {
     gap: 8px;
-    /* Уменьшаем расстояние между карточками */
   }
 
   .hisobot_card {
     width: 150px;
-    /* Уменьшаем карточки еще больше на мобильных */
     height: 110px;
-    padding: 5px;
-    font-size: 16px;
   }
 
   .hisobot_card>b {
-    font-size: 20px;
+    font-size: 18px;
     height: 45px;
   }
 
   .hisobot_card>p {
     font-size: 12px;
     height: 45px;
+  }
+}
+
+/* 📱 Адаптация для очень маленьких экранов */
+@media (max-width: 390px) {
+  .hisobot_card {
+    width: 140px;
+    height: 100px;
+  }
+
+  .hisobot_card>b {
+    font-size: 16px;
+    height: 40px;
+  }
+
+  .hisobot_card>p {
+    font-size: 11px;
+    height: 40px;
   }
 }

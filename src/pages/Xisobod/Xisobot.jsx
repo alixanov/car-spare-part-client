@@ -8,7 +8,6 @@ import { useGetExpensesQuery } from "../../context/service/harajatlar.service";
 import { useGetSalesHistoryQuery } from "../../context/service/sale.service";
 import { useGetUsdRateQuery } from "../../context/service/usd.service";
 import { DatePicker } from "antd";
-const { RangePicker } = DatePicker;
 
 export default function Xisobot() {
   const { data: budgetData } = useGetBudgetQuery();
@@ -18,7 +17,7 @@ export default function Xisobot() {
   const { data: debtData } = useGetDebtorsQuery();
   const { data: harajatData } = useGetExpensesQuery();
   const { data: usdRate } = useGetUsdRateQuery();
-  const [selectedRange, setSelectedRange] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(null); // Изменено на одну дату
   const [umumiyDebt, setUmumiyDebt] = useState(0);
   const [umumiySale, setUmumiySale] = useState(0);
   const [umumiySklad, setUmumiySklad] = useState(0);
@@ -26,26 +25,17 @@ export default function Xisobot() {
   const [umumiyHarajat, setUmumiyHarajat] = useState(0);
   const [umumiyAstatka, setUmumiyAstatka] = useState(0);
 
-  const handleDateChange = (dates) => {
-    console.log(dates);
-    if (!dates || dates.length === 0) {
-      console.log("clear");
-      setSelectedRange([])
-      return
-    }
-    setSelectedRange(dates);
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
   };
 
   useEffect(() => {
-    const startDate = selectedRange[0] ? selectedRange[0].startOf("day") : null;
-    const endDate = selectedRange[1] ? selectedRange[1].endOf("day") : null;
+    const startDate = selectedDate ? selectedDate.startOf("day") : null;
 
-    // Filter data based on selected range or show all data if no range is selected
     setUmumiyDebt(
       debtData?.filter(
         (item) =>
-          (startDate ? new Date(item.createdAt) >= startDate : true) &&
-          (endDate ? new Date(item.createdAt) <= endDate : true)
+          startDate ? new Date(item.createdAt) >= startDate : true
       )?.reduce((a, b) => a + (b?.debt_amount || 0), 0)
     );
 
@@ -71,8 +61,7 @@ export default function Xisobot() {
     setUmumiySale(
       saleData?.filter(
         (item) =>
-          (startDate ? new Date(item.createdAt) >= startDate : true) &&
-          (endDate ? new Date(item.createdAt) <= endDate : true)
+          startDate ? new Date(item.createdAt) >= startDate : true
       )?.reduce(
         (a, b) =>
           a +
@@ -85,8 +74,7 @@ export default function Xisobot() {
     setUmumiyHarajat(
       harajatData?.filter(
         (item) =>
-          (startDate ? new Date(item.createdAt) >= startDate : true) &&
-          (endDate ? new Date(item.createdAt) <= endDate : true)
+          startDate ? new Date(item.createdAt) >= startDate : true
       )?.reduce((a, b) => a + (b?.payment_summ || 0), 0) || 0
     );
 
@@ -101,34 +89,35 @@ export default function Xisobot() {
         0
       ) || 0)
     );
-  }, [debtData, saleData, skladData, storeData, harajatData, selectedRange, usdRate]);
+  }, [debtData, saleData, skladData, storeData, harajatData, selectedDate, usdRate]);
 
   return (
     <div style={{ height: "calc(100vh - 200px)", paddingInline: "12px" }}>
       <div style={{ marginBottom: "20px" }}>
-        <RangePicker
+        <DatePicker
           onChange={handleDateChange}
           format="YYYY-MM-DD"
-          style={{ width: "100%" }}
+          style={{ width: "100%", maxWidth: "330px" }} // Уменьшаем ширину календаря
+          placeholder="Выберите дату"
         />
       </div>
 
       <div className="hisobot_container">
         <div className="hisobot_card">
-          <p style={{ color: "#000" }}>Umumiy sotuv daromadi</p>
-          <b style={{ color: "#000" }}>{umumiySale?.toLocaleString()} UZS</b>
+          <p>Umumiy sotuv daromadi</p>
+          <b>{umumiySale?.toLocaleString()} UZS</b>
         </div>
         <div className="hisobot_card">
-          <p style={{ color: "#000" }}>Umumiy qarzdorlik</p>
-          <b style={{ color: "#000" }}>{umumiyDebt?.toLocaleString()} UZS</b>
+          <p>Umumiy qarzdorlik</p>
+          <b>{umumiyDebt?.toLocaleString()} UZS</b>
         </div>
         <div className="hisobot_card">
-          <p style={{ color: "#000" }}>Umumiy harajat</p>
-          <b style={{ color: "#000" }}>{umumiyHarajat?.toLocaleString()} UZS</b>
+          <p>Umumiy harajat</p>
+          <b>{umumiyHarajat?.toLocaleString()} UZS</b>
         </div>
         <div className="hisobot_card">
-          <p style={{ color: "#000" }}>Sklad va Do'kon - umumiy astatka</p>
-          <b style={{ color: "#000" }}>{umumiyAstatka?.toLocaleString()}$</b>
+          <p>Sklad va Do'kon - umumiy astatka</p>
+          <b>{umumiyAstatka?.toLocaleString()}$</b>
         </div>
       </div>
     </div>

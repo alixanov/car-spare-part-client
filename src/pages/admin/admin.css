@@ -192,7 +192,8 @@
   }
 }
 
-.custom-search {
+/* Контейнер для поиска */
+.search-container {
   display: flex;
   align-items: center;
   width: 100%;
@@ -200,7 +201,8 @@
   flex: 1 1 auto;
 }
 
-.custom-input {
+/* Поле ввода */
+.search-input {
   flex: 1;
   height: 33px;
   border: 1px solid #d9d9d9;
@@ -209,12 +211,16 @@
   font-size: 16px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-color: #fafafa;
-    color: #222222;
+  color: #222222;
 }
-.custom-input::placeholder {
-  color: #222222; /* Цвет плейсхолдера */
+
+/* Цвет плейсхолдера */
+.search-input::placeholder {
+  color: #222222;
 }
-.custom-button {
+
+/* Кнопка поиска */
+.search-button {
   height: 33px;
   padding: 0 16px;
   border: 1px solid #d9d9d9;
@@ -224,49 +230,52 @@
   color: white;
   font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
 
-.custom-button:hover {
+/* Изменение цвета кнопки при наведении */
+.search-button:hover {
   background-color: #167ac6;
 }
 
-/* Медиазапрос для планшетов */
+/* Адаптация для планшетов */
 @media (max-width: 768px) {
-  .custom-search {
+  .search-container {
     max-width: 100%;
   }
 
-  .custom-input,
-  .custom-button {
+  .search-input,
+  .search-button {
     height: 36px;
     font-size: 14px;
   }
 }
 
-/* Медиазапрос для мобильных устройств */
+/* Адаптация для мобильных устройств */
 @media (max-width: 480px) {
-  .custom-search {
+  .search-container {
     flex-direction: column;
     align-items: stretch;
-    gap: 10px;
-    /* Добавляем отступы между полем ввода и кнопкой */
+    gap: 8px;
+    /* Отступ между полем ввода и кнопкой */
   }
 
-  .custom-input,
-  .custom-button {
+  .search-input,
+  .search-button {
     width: 100%;
-    height: 34px;
+    height: 36px;
     font-size: 14px;
   }
 
-  .custom-button {
-    padding: 0 12px;
+  .search-button {
+    padding: 0 5px;
     border-radius: 8px;
   }
-        .custom-input{
-          width: 370px;
-          height: 44px;
-          border-radius: 30px;
-        }
+
+  .search-input {
+    width: 100%;
+    height: 55px;
+    border-radius: 8px;
+    padding: 8px;
+  }
 }
