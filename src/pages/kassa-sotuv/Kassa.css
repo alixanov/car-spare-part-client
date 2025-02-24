@@ -14,12 +14,12 @@
   align-items: start;
   justify-content: space-between;
   overflow: scroll;
+    background-color: #0f4c81;
 }
 
 .kassa-header {
   width: 20%;
   height: 100%;
-  background-color: #0f4c81;
   border-right: 5px solid white;
   border-bottom: 5px solid white;
   padding-left: 10px;
@@ -96,11 +96,6 @@
 }
 
 
-
-
-
-
-
 #tgqr_p{
   width: 100%;
   display: flex;
@@ -116,15 +111,40 @@
 
 .table > tbody{
   height: 120px;
+
 }
 
+@media(max-width: 768px) {
+  .kassa-header {
+    width: 11%;
+  }
+
+
+
+
+}
 
 @media(max-width: 419px) {
 .kassa-header {
-    width: 30%;}
+    width: 13%;}
 
         .kassa-header > button{
-          margin-left: -5px;
+          margin-left: -10px;
           padding: 2px;
         }
+                .kassa-container {
+                  justify-content: center;
+                }
+              
+        
+}
+
+
+
+.table__ant th,
+.table__ant td {
+  text-align: left;
+  /* Выравнивание по левому краю */
+  vertical-align: top;
+  /* Выравнивание по верхнему краю */
 }

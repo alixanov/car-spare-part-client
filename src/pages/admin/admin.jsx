@@ -13,18 +13,6 @@ import {
   AutoComplete,
   Drawer, Menu
 } from "antd";
-
-
-
-
-
-
-
-
-
-
-
-
 import { Popconfirm } from "antd";
 import "antd/dist/reset.css";
 import { Option } from "antd/es/mentions";
@@ -433,8 +421,8 @@ export const Admin = () => {
 
   return (
     <div className="admin-container">
-      <div className="admin-buttons">
-        <PrintButton /> {/* PrintButton komponentini joylashtirish */}
+      <div className="admin-buttons-print">
+        <PrintButton className="hide-on-mobile" />
       </div>
 
       <Modal title="Mahsulot yaratish" open={isModalOpen} onCancel={handleCancel} footer={null}>
@@ -611,14 +599,14 @@ export const Admin = () => {
                     <Option value="outOfStock">Tugagan mahsulotlar</Option>
                   </Select>
                 </div>
-                <Table
-                  dataSource={filteredData?.filter(st => st?.storeProduct !== true)}
-                  loading={isLoading}
-                  columns={columns}
-                  pagination={{ pageSize: 20 }}
-                  rowClassName={rowClassName}
-                  scroll={{ x: "max-content" }}
-                />
+              <Table
+                dataSource={filteredData?.filter(st => st?.storeProduct != true)}
+                loading={isLoading}
+                columns={columns}
+                pagination={{ pageSize: 20 }}
+                rowClassName={rowClassName}
+                scroll={{ x: "max-content" }}
+              />
               </Tabs.TabPane>
             )}
 

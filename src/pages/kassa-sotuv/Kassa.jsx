@@ -30,6 +30,11 @@ import { useReactToPrint } from "react-to-print";
 import moment from "moment-timezone";
 import Vazvrat from "../vazvrat/Vazvrat";
 import tgqr from "../../assets/Screenshot_1.png";
+
+import {
+  UserOutlined,DollarOutlined,RetweetOutlined
+}from '@ant-design/icons';
+
 const { Option } = Select;
 
 export default function Kassa() {
@@ -490,10 +495,12 @@ export default function Kassa() {
       </Modal>
 
       <div className="kassa-header">
+        {/* Buttons for desktop */}
         <Button
           type="primary"
           onClick={() => setQarzdorModalVisible(true)}
           style={{ marginRight: 10, marginBottom: 10 }}
+          className="desktop-button"
         >
           Qarzdorlar
         </Button>
@@ -501,6 +508,7 @@ export default function Kassa() {
           type="primary"
           onClick={() => setXarajatlarModalVisible(true)}
           style={{ marginRight: 10, marginBottom: 10 }}
+          className="desktop-button"
         >
           Xarajatlar
         </Button>
@@ -508,26 +516,58 @@ export default function Kassa() {
           type="primary"
           onClick={() => setVazvratModalVisible(true)}
           style={{ marginRight: 10, marginBottom: 10 }}
+          className="desktop-button"
         >
           Vazvrat
         </Button>
 
+        {/* Icons for mobile */}
+        <Button
+          type="primary"
+          onClick={() => setQarzdorModalVisible(true)}
+          icon={<UserOutlined />}
+          className="mobile-button"
+        />
+        <Button
+          type="primary"
+          onClick={() => setXarajatlarModalVisible(true)}
+          icon={<DollarOutlined />}
+          className="mobile-button"
+        />
+        <Button
+          type="primary"
+          onClick={() => setVazvratModalVisible(true)}
+          icon={<RetweetOutlined />}
+          className="mobile-button"
+        />
+
         {/* Media Queries for Tablet and Mobile */}
         <style jsx>{`
-    @media (max-width: 768px) {
-      .kassa-header {
-        display: flex;
-        flex-direction: column; // Размещение кнопок вертикально на планшетах
-        align-items: stretch;
-      }
-      .kassa-header button {
-        width: 100%; // Кнопки занимают всю ширину
-      }
-    }
+        .desktop-button {
+          display: inline-block;
+        }
+        .mobile-button {
+          display: none;
+        }
 
-}
-    }
-  `}</style>
+        @media (max-width: 768px) {
+          .desktop-button {
+            display: none; /* Скрываем кнопки с текстом на мобильных устройствах */
+          }
+          .mobile-button {
+            display: inline-block; /* Показываем иконки на мобильных */
+            width: 48px;
+            height: 48px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px; /* Размер иконки */
+          }
+        }
+      `}</style>
       </div>
 
       <Card
@@ -554,22 +594,40 @@ export default function Kassa() {
           onChange={(e) => setSearchTerm(e.target.value)}
           style={{ marginBottom: 20, width: "40%" }}
           size="large"
+          className="input__kassa__table"
         />
 
         <Table
+          className="table__ant"
           dataSource={filteredProducts}
           loading={isLoading}
           style={{ width: "100%" }}
           columns={[
-            { title: "Mahsulot nomi", dataIndex: "product_name", key: "product_name" },
-            { title: "Tan narxi", dataIndex: "purchase_price", key: "purchase_price" },
+            {
+              title: "Mahsulot nomi",
+              dataIndex: "product_name",
+              key: "product_name",
+              align: "left", // Выравнивание по левому краю
+            },
+            {
+              title: "Tan narxi",
+              dataIndex: "purchase_price",
+              key: "purchase_price",
+              align: "left", // Выравнивание по левому краю
+            },
             {
               title: "Narxi (Som)",
               dataIndex: "sell_price",
               key: "sell_price",
               render: (text) => `${(text * usdRateData.rate).toFixed(2)} Som`,
+              align: "left", // Выравнивание по левому краю
             },
-            { title: "Skalad Miqdori", dataIndex: "stock", key: "stock" },
+            {
+              title: "Skalad Miqdori",
+              dataIndex: "stock",
+              key: "stock",
+              align: "left", // Выравнивание по левому краю
+            },
             {
               title: "Dokon Miqdori",
               dataIndex: "quantity",
@@ -579,14 +637,50 @@ export default function Kassa() {
                   (product) => product.product_id?._id === record._id
                 )?.quantity;
               },
+              align: "left", // Выравнивание по левому краю
             },
-            { title: "Shtrix kod", dataIndex: "barcode", key: "barcode" },
-            { title: "Modeli", dataIndex: "model", key: "model" },
-            { title: "Qutisi", dataIndex: "packing_type", key: "packing_type" },
-            { title: "Izoh", dataIndex: "special_notes", key: "special_notes" },
-            { title: "Brend", dataIndex: "brand_name", key: "brand_name" },
-            { title: "kimdan-kelgan", dataIndex: "kimdan_kelgan", key: "kimdan_kelgan" },
-            { title: "Katalogi ", dataIndex: "product_category", key: "product_category" },
+            {
+              title: "Shtrix kod",
+              dataIndex: "barcode",
+              key: "barcode",
+              align: "left", // Выравнивание по левому краю
+            },
+            {
+              title: "Modeli",
+              dataIndex: "model",
+              key: "model",
+              align: "left", // Выравнивание по левому краю
+            },
+            {
+              title: "Qutisi",
+              dataIndex: "packing_type",
+              key: "packing_type",
+              align: "left", // Выравнивание по левому краю
+            },
+            {
+              title: "Izoh",
+              dataIndex: "special_notes",
+              key: "special_notes",
+              align: "left", // Выравнивание по левому краю
+            },
+            {
+              title: "Brend",
+              dataIndex: "brand_name",
+              key: "brand_name",
+              align: "left", // Выравнивание по левому краю
+            },
+            {
+              title: "kimdan-kelgan",
+              dataIndex: "kimdan_kelgan",
+              key: "kimdan_kelgan",
+              align: "left", // Выравнивание по левому краю
+            },
+            {
+              title: "Katalogi ",
+              dataIndex: "product_category",
+              key: "product_category",
+              align: "left", // Выравнивание по левому краю
+            },
             {
               title: "Harakatlar",
               key: "actions",
@@ -595,6 +689,7 @@ export default function Kassa() {
                   Tanlash
                 </Button>
               ),
+              align: "left", // Выравнивание по левому краю
             },
           ]}
           rowKey="_id"

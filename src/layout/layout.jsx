@@ -72,7 +72,7 @@ export const Layout = memo(() => {
               style={{ display: "flex", alignItems: "center", color: "#787878" }}
               className="kassa__txt"
           >
-            Kassa:{" "}
+            {/* Kassa:{" "} */}
             <h2
               style={{ color: "#000000", marginTop: "12px", marginLeft: "2px" }}
             >

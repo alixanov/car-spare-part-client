@@ -6,7 +6,7 @@
   padding: 10px;
 }
 
-.admin-buttons {
+.admin-buttons-print {
   width: 100%;
   display: flex;
   align-items: center;
@@ -84,7 +84,7 @@
 
 /* Адаптация для мобильных устройств */
 @media (max-width: 768px) {
-  .admin-buttons {
+  .admin-buttons-print {
     flex-direction: column;
     /* Кнопки располагаются вертикально */
     align-items: flex-start;
@@ -139,7 +139,7 @@
 
 /* Адаптация для планшетов */
 @media (min-width: 769px) and (max-width: 1024px) {
-  .admin-buttons {
+  .admin-buttons-print {
     flex-direction: row;
     /* Кнопки располагаются горизонтально */
     align-items: center;
@@ -249,6 +249,10 @@
     height: 36px;
     font-size: 14px;
   }
+  .admin-buttons-print {
+    display: none;
+  }
+
 }
 
 /* Адаптация для мобильных устройств */
