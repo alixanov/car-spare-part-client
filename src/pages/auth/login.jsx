@@ -16,7 +16,7 @@ export const Login = memo(() => {
 
     try {
       const res = await axios.post(
-        "https://car-spare-part-server-i.vercel.app/api/login",
+        "https://car-spare-part-server.vercel.app/api/login",
         value,
         {
           headers: {
