@@ -16,6 +16,7 @@ export const Login = memo(() => {
 
     try {
       const res = await axios.post("https://car-spare-part-server.vercel.app/api/login", value);
+      // const res = await axios.post("http://localhost:8080/api/login", value);
       console.log(res.data);
 
       const token = res.data.token;
