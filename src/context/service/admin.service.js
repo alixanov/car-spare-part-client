@@ -6,7 +6,7 @@ const baseQuery = fetchBaseQuery({
   // baseUrl: "https://lola-crm-server.vercel.app/api",
   // baseUrl: "https://zapchast-test-bekent.vercel.app/api",
   // baseUrl:"http://localhost:8080/api/",
-  baseUrl:"https://car-spare-part-server.vercel.app/api",
+  baseUrl:"https://car-spare-part-server-i.vercel.app/api",
 
   prepareHeaders: (headers, { getState }) => {
     const token = localStorage.getItem("access_token");
